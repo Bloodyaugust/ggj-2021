@@ -1,6 +1,6 @@
 const baseData = require('../data/base.json');
 
-const MAX_PLANETS_PER_SYSTEM = 5;
+const MAX_PLANETS_PER_SYSTEM = 8;
 
 class System {
   constructor(chanceInstance) {
@@ -26,12 +26,9 @@ class System {
     });
 
     for (let i = 0; i < numPlanets; i++) {
-      this.planets.push({
-        type: 'Terran',
-        credits: 1,
-        fuel: 2,
-        supplies: 3
-      });
+      const planet = chanceInstance.weighted(baseData.sheets.find(sheet => sheet.name === 'planets').lines, baseData.sheets.find(sheet => sheet.name === 'planets').lines.map(planet => planet.weight));
+
+      this.planets.push(planet);
     }
   }
 }
