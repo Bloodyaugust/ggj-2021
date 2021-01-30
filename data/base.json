@@ -136,6 +136,26 @@
 					"typeStr": "4",
 					"name": "weight",
 					"display": null
+				},
+				{
+					"typeStr": "4",
+					"name": "difficulty"
+				},
+				{
+					"typeStr": "4",
+					"name": "popBase"
+				},
+				{
+					"typeStr": "4",
+					"name": "hosBase"
+				},
+				{
+					"typeStr": "4",
+					"name": "popMod"
+				},
+				{
+					"typeStr": "4",
+					"name": "hosMod"
 				}
 			],
 			"lines": [
@@ -144,63 +164,108 @@
 					"credits": 0,
 					"fuel": 1,
 					"supplies": 5,
-					"weight": 25
+					"weight": 25,
+					"difficulty": 5,
+					"popBase": 5,
+					"hosBase": 5,
+					"popMod": 3,
+					"hosMod": 3
 				},
 				{
 					"type": "Gas",
 					"credits": 0,
 					"fuel": 6,
 					"supplies": 1,
-					"weight": 20
+					"weight": 20,
+					"difficulty": 10,
+					"popBase": 10,
+					"hosBase": 10,
+					"popMod": 5,
+					"hosMod": 5
 				},
 				{
 					"type": "Desert",
 					"credits": 5,
 					"fuel": 2,
 					"supplies": 3,
-					"weight": 10
+					"weight": 10,
+					"difficulty": 20,
+					"popBase": 20,
+					"hosBase": 20,
+					"popMod": 5,
+					"hosMod": 5
 				},
 				{
 					"type": "Lava",
 					"credits": 4,
 					"fuel": 1,
 					"supplies": 5,
-					"weight": 10
+					"weight": 10,
+					"difficulty": 20,
+					"popBase": 20,
+					"hosBase": 20,
+					"popMod": 5,
+					"hosMod": 5
 				},
 				{
 					"type": "Ocean",
 					"credits": 2,
 					"fuel": 5,
 					"supplies": 3,
-					"weight": 10
+					"weight": 10,
+					"difficulty": 20,
+					"popBase": 20,
+					"hosBase": 20,
+					"popMod": 5,
+					"hosMod": 5
 				},
 				{
 					"type": "Iron",
 					"credits": 3,
 					"fuel": 2,
 					"supplies": 5,
-					"weight": 10
+					"weight": 10,
+					"difficulty": 20,
+					"popBase": 20,
+					"hosBase": 20,
+					"popMod": 5,
+					"hosMod": 5
 				},
 				{
 					"type": "Ice",
 					"credits": 6,
 					"fuel": 3,
 					"supplies": 1,
-					"weight": 10
+					"weight": 10,
+					"difficulty": 20,
+					"popBase": 20,
+					"hosBase": 20,
+					"popMod": 5,
+					"hosMod": 5
 				},
 				{
 					"type": "Terrestrial",
 					"credits": 8,
 					"fuel": 7,
 					"supplies": 5,
-					"weight": 5
+					"weight": 5,
+					"difficulty": 30,
+					"popBase": 30,
+					"hosBase": 30,
+					"popMod": 5,
+					"hosMod": 5
 				},
 				{
 					"type": "Chthonian",
 					"credits": 0,
 					"fuel": 0,
 					"supplies": 0,
-					"weight": 1
+					"weight": 1,
+					"difficulty": 0,
+					"popBase": 0,
+					"hosBase": 0,
+					"popMod": 0,
+					"hosMod": 0
 				}
 			],
 			"separators": [],
