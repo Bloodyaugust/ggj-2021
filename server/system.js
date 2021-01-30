@@ -7,6 +7,7 @@ class System {
       baseData.sheets.find(sheet => sheet.name === 'stars').lines,
       baseData.sheets.find(sheet => sheet.name === 'stars').lines.map(star => star.weight)
     );
+    this.owner = null;
     this.position = {
       x: chanceInstance.floating({
         min: 0,
@@ -28,6 +29,10 @@ class System {
 
       this.planets.push(planet);
     }
+  }
+
+  setOwner(userID) {
+    this.owner = userID;
   }
 }
 

@@ -11,7 +11,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "803aa726-947e-447f-8acc-5443cf17dc23",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -41,7 +40,48 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Response contains userID and starting system\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.userID).to.eql('abcd');",
+							"    pm.expect(jsonData.system).to.be.an('object');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userID\": \"abcd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_ROOT}}register",
+					"host": [
+						"{{API_ROOT}}register"
+					]
+				},
+				"description": "Register a new player"
+			},
+			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
