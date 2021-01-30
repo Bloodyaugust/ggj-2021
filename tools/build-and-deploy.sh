@@ -73,6 +73,5 @@ butler push build/win/ synsugarstudio/ggj-2021:win-alpha
 echo "Deploying server"
 echo "-----------------------------"
 cd server/
-npm install -g yarn
 yarn install
 yarn pm2 deploy ecosystem.config.js production

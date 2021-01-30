@@ -21,6 +21,8 @@ RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | 
     && nvm install node 15.7.0 \
     && npm install --global yarn
 
+ENV PATH="/root/.nvm/versions/node/v15.7.0/bin/:${PATH}"
+
 RUN wget --quiet https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default -O butler.zip \
     && unzip butler.zip -d /butler \
     && chmod +x /butler/butler
