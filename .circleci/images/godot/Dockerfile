@@ -13,11 +13,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zip \
     python \
     python-openssl \
-    nodejs \
-    npm \
     && rm -rf /var/lib/apt/lists/*
 
-RUN npm install --global yarn
+RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash \
+    && export NVM_DIR="$HOME/.nvm" \
+    && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
+    && nvm install node 15.7.0 \
+    && npm install --global yarn
 
 RUN wget --quiet https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default -O butler.zip \
     && unzip butler.zip -d /butler \
