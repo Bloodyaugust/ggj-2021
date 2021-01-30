@@ -11,6 +11,7 @@
 				{
 					"listen": "test",
 					"script": {
+						"id": "803aa726-947e-447f-8acc-5443cf17dc23",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -47,14 +48,16 @@
 				{
 					"listen": "test",
 					"script": {
+						"id": "68a74777-a115-4c5c-a340-72862eed7fb3",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"pm.test(\"Response contains userID and starting system\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.userID).to.eql('abcd');",
+							"    pm.expect(jsonData.id).to.eql('abcd');",
 							"    pm.expect(jsonData.system).to.be.an('object');",
+							"    pm.expect(jsonData.system.owner).to.eql('abcd');",
 							"});"
 						],
 						"type": "text/javascript"
@@ -83,5 +86,6 @@
 			},
 			"response": []
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
