@@ -39,6 +39,7 @@ Functional="*res://lib/util/Functional.gd"
 GDUtil="*res://lib/util/GDUtil.gd"
 ClientConstants="*res://constants/client_constants.gd"
 GameConstants="*res://constants/game_constants.gd"
+Clientstore="*res://singletons/clientstore.gd"
 
 [display]
 

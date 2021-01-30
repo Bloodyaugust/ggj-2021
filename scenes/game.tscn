@@ -86,4 +86,4 @@ margin_bottom = -25.0
 
 [node name="EventPopup" parent="UILayer" instance=ExtResource( 3 )]
 margin_top = 67.0
-margin_right = -7.0
+margin_right = -7.00012

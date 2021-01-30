@@ -30,13 +30,13 @@ __meta__ = {
 [node name="PanelContainer" type="PanelContainer" parent="UIRoot/MainMenu"]
 margin_top = 40.0
 margin_right = 154.0
-margin_bottom = 560.0
+margin_bottom = 1040.0
 
 [node name="MarginContainer" type="MarginContainer" parent="UIRoot/MainMenu/PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 147.0
-margin_bottom = 513.0
+margin_bottom = 993.0
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20
@@ -46,22 +46,22 @@ custom_constants/margin_bottom = 20
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 120.0
-margin_bottom = 486.0
+margin_bottom = 966.0
 custom_constants/separation = 20
 alignment = 1
 
 [node name="Label" type="Label" parent="UIRoot/MainMenu/PanelContainer/MarginContainer/VBoxContainer"]
-margin_top = 190.0
+margin_top = 430.0
 margin_right = 100.0
-margin_bottom = 214.0
+margin_bottom = 454.0
 text = "Main Menu"
 align = 1
 valign = 1
 
 [node name="Play" type="Button" parent="UIRoot/MainMenu/PanelContainer/MarginContainer/VBoxContainer"]
-margin_top = 234.0
+margin_top = 474.0
 margin_right = 100.0
-margin_bottom = 276.736
+margin_bottom = 516.736
 text = "Play"
 
 [node name="MarginContainer" type="MarginContainer" parent="UIRoot"]
