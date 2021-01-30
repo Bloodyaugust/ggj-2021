@@ -140,6 +140,22 @@
 				{
 					"typeStr": "4",
 					"name": "difficulty"
+				},
+				{
+					"typeStr": "4",
+					"name": "popBase"
+				},
+				{
+					"typeStr": "4",
+					"name": "hosBase"
+				},
+				{
+					"typeStr": "4",
+					"name": "popMod"
+				},
+				{
+					"typeStr": "4",
+					"name": "hosMod"
 				}
 			],
 			"lines": [
@@ -149,7 +165,11 @@
 					"fuel": 1,
 					"supplies": 5,
 					"weight": 25,
-					"difficulty": 5
+					"difficulty": 5,
+					"popBase": 5,
+					"hosBase": 5,
+					"popMod": 3,
+					"hosMod": 3
 				},
 				{
 					"type": "Gas",
@@ -157,7 +177,11 @@
 					"fuel": 6,
 					"supplies": 1,
 					"weight": 20,
-					"difficulty": 10
+					"difficulty": 10,
+					"popBase": 10,
+					"hosBase": 10,
+					"popMod": 5,
+					"hosMod": 5
 				},
 				{
 					"type": "Desert",
@@ -165,7 +189,11 @@
 					"fuel": 2,
 					"supplies": 3,
 					"weight": 10,
-					"difficulty": 20
+					"difficulty": 20,
+					"popBase": 20,
+					"hosBase": 20,
+					"popMod": 5,
+					"hosMod": 5
 				},
 				{
 					"type": "Lava",
@@ -173,7 +201,11 @@
 					"fuel": 1,
 					"supplies": 5,
 					"weight": 10,
-					"difficulty": 20
+					"difficulty": 20,
+					"popBase": 20,
+					"hosBase": 20,
+					"popMod": 5,
+					"hosMod": 5
 				},
 				{
 					"type": "Ocean",
@@ -181,7 +213,11 @@
 					"fuel": 5,
 					"supplies": 3,
 					"weight": 10,
-					"difficulty": 20
+					"difficulty": 20,
+					"popBase": 20,
+					"hosBase": 20,
+					"popMod": 5,
+					"hosMod": 5
 				},
 				{
 					"type": "Iron",
@@ -189,7 +225,11 @@
 					"fuel": 2,
 					"supplies": 5,
 					"weight": 10,
-					"difficulty": 20
+					"difficulty": 20,
+					"popBase": 20,
+					"hosBase": 20,
+					"popMod": 5,
+					"hosMod": 5
 				},
 				{
 					"type": "Ice",
@@ -197,7 +237,11 @@
 					"fuel": 3,
 					"supplies": 1,
 					"weight": 10,
-					"difficulty": 20
+					"difficulty": 20,
+					"popBase": 20,
+					"hosBase": 20,
+					"popMod": 5,
+					"hosMod": 5
 				},
 				{
 					"type": "Terrestrial",
@@ -205,7 +249,11 @@
 					"fuel": 7,
 					"supplies": 5,
 					"weight": 5,
-					"difficulty": 30
+					"difficulty": 30,
+					"popBase": 30,
+					"hosBase": 30,
+					"popMod": 5,
+					"hosMod": 5
 				},
 				{
 					"type": "Chthonian",
@@ -213,7 +261,11 @@
 					"fuel": 0,
 					"supplies": 0,
 					"weight": 1,
-					"difficulty": 0
+					"difficulty": 0,
+					"popBase": 0,
+					"hosBase": 0,
+					"popMod": 0,
+					"hosMod": 0
 				}
 			],
 			"separators": [],
