@@ -1,0 +1,108 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://scenes/UI/EventCard.gd" type="Script" id=2]
+
+[node name="EventPopup" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EventPlacard" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -180.0
+margin_top = -250.0
+margin_right = 180.0
+margin_bottom = 250.0
+
+[node name="PanelContainer" type="PanelContainer" parent="EventPlacard"]
+anchor_right = 1.0
+margin_bottom = 38.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EventTitle" type="Label" parent="EventPlacard/PanelContainer"]
+margin_left = 7.0
+margin_top = 12.0
+margin_right = 353.0
+margin_bottom = 26.0
+text = "EVENT TITLE"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EventPicture" type="TextureRect" parent="EventPlacard"]
+anchor_right = 1.0
+margin_left = 10.0
+margin_top = 45.0
+margin_right = -10.0
+margin_bottom = 161.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="EventPlacard"]
+margin_left = 6.0
+margin_top = 161.0
+margin_right = 353.0
+margin_bottom = 347.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FlavorText" type="Label" parent="EventPlacard/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "FLAVOR TEXT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionContainer" type="VBoxContainer" parent="EventPlacard"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -150.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Option" type="Button" parent="EventPlacard/OptionContainer"]
+margin_top = 5.0
+margin_right = 360.0
+margin_bottom = 25.0
+
+[node name="Option2" type="Button" parent="EventPlacard/OptionContainer"]
+margin_top = 29.0
+margin_right = 360.0
+margin_bottom = 49.0
+
+[node name="Option3" type="Button" parent="EventPlacard/OptionContainer"]
+margin_top = 53.0
+margin_right = 360.0
+margin_bottom = 73.0
+
+[node name="Option4" type="Button" parent="EventPlacard/OptionContainer"]
+margin_top = 77.0
+margin_right = 360.0
+margin_bottom = 97.0
+
+[node name="Option5" type="Button" parent="EventPlacard/OptionContainer"]
+margin_top = 101.0
+margin_right = 360.0
+margin_bottom = 121.0
+
+[node name="Option6" type="Button" parent="EventPlacard/OptionContainer"]
+margin_top = 125.0
+margin_right = 360.0
+margin_bottom = 145.0
