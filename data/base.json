@@ -9,18 +9,85 @@
 					"display": null
 				},
 				{
+					"typeStr": "11",
+					"name": "color",
+					"display": null
+				},
+				{
+					"typeStr": "4",
+					"name": "size"
+				},
+				{
 					"typeStr": "4",
 					"name": "weight"
 				}
 			],
 			"lines": [
 				{
+					"sequence": "O",
+					"weight": 0.1,
+					"color": 10286847,
+					"size": 10
+				},
+				{
+					"sequence": "B",
+					"color": 11860223,
+					"weight": 2,
+					"size": 5
+				},
+				{
+					"sequence": "A",
+					"color": 13368063,
+					"weight": 5,
+					"size": 1.7
+				},
+				{
+					"sequence": "F",
+					"color": 16711630,
+					"weight": 5,
+					"size": 1.3
+				},
+				{
 					"sequence": "G",
-					"weight": 1
+					"weight": 10,
+					"color": 16646008,
+					"size": 1
+				},
+				{
+					"sequence": "K",
+					"color": 16736851,
+					"weight": 15,
+					"size": 0.7
+				},
+				{
+					"sequence": "M",
+					"color": 15597568,
+					"weight": 50,
+					"size": 0.3
+				},
+				{
+					"sequence": "Giant",
+					"color": 15204352,
+					"weight": 3,
+					"size": 20
+				},
+				{
+					"sequence": "WhiteDwarf",
+					"color": 16777215,
+					"weight": 10,
+					"size": 0.1
+				},
+				{
+					"sequence": "Supergiant",
+					"color": 16749056,
+					"weight": 0.5,
+					"size": 30
 				},
 				{
 					"sequence": "BlackHole",
-					"weight": 0.01
+					"weight": 0.01,
+					"color": 0,
+					"size": 0
 				}
 			],
 			"separators": [],
@@ -36,7 +103,7 @@
 				},
 				{
 					"typeStr": "4",
-					"name": "credits",
+					"name": "supplies",
 					"display": null
 				},
 				{
@@ -46,7 +113,7 @@
 				},
 				{
 					"typeStr": "4",
-					"name": "supplies",
+					"name": "credits",
 					"display": null
 				},
 				{
@@ -57,17 +124,66 @@
 			],
 			"lines": [
 				{
-					"type": "Terran",
-					"credits": 1,
+					"type": "Silicate",
+					"credits": 0,
+					"fuel": 1,
+					"supplies": 5,
+					"weight": 25
+				},
+				{
+					"type": "Gas",
+					"credits": 0,
+					"fuel": 6,
+					"supplies": 1,
+					"weight": 20
+				},
+				{
+					"type": "Desert",
+					"credits": 5,
 					"fuel": 2,
 					"supplies": 3,
-					"weight": 5
+					"weight": 10
+				},
+				{
+					"type": "Lava",
+					"credits": 4,
+					"fuel": 1,
+					"supplies": 5,
+					"weight": 10
 				},
 				{
 					"type": "Ocean",
-					"credits": 0,
+					"credits": 2,
 					"fuel": 5,
+					"supplies": 3,
+					"weight": 10
+				},
+				{
+					"type": "Iron",
+					"credits": 3,
+					"fuel": 2,
+					"supplies": 5,
+					"weight": 10
+				},
+				{
+					"type": "Ice",
+					"credits": 6,
+					"fuel": 3,
 					"supplies": 1,
+					"weight": 10
+				},
+				{
+					"type": "Terrestrial",
+					"credits": 8,
+					"fuel": 7,
+					"supplies": 5,
+					"weight": 5
+				},
+				{
+					"type": "Chthonian",
+					"credits": 0,
+					"fuel": 0,
+					"supplies": 0,
 					"weight": 1
 				}
 			],
