@@ -13,7 +13,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zip \
     python \
     python-openssl \
+    nodejs \
+    npm \
     && rm -rf /var/lib/apt/lists/*
+
+RUN npm install --global yarn
 
 RUN wget --quiet https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default -O butler.zip \
     && unzip butler.zip -d /butler \

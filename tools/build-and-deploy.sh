@@ -67,3 +67,9 @@ echo "-----------------------------"
 butler push build/linux/ synsugarstudio/ggj-2021:linux-alpha
 butler push build/osx/ synsugarstudio/ggj-2021:osx-alpha
 butler push build/win/ synsugarstudio/ggj-2021:win-alpha
+
+echo "Deploying server"
+echo "-----------------------------"
+cd server/
+yarn install
+yarn pm2 deploy ecosystem.config.js production
