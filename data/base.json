@@ -323,6 +323,62 @@
 			],
 			"separators": [],
 			"props": {}
+		},
+		{
+			"name": "Event",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "eventID"
+				},
+				{
+					"typeStr": "5:Conquest",
+					"name": "type"
+				},
+				{
+					"typeStr": "10:",
+					"name": "requirements"
+				},
+				{
+					"typeStr": "3",
+					"name": "graphicID"
+				},
+				{
+					"typeStr": "1",
+					"name": "description"
+				},
+				{
+					"typeStr": "8",
+					"name": "options",
+					"display": null
+				},
+				{
+					"typeStr": "4",
+					"name": "weight"
+				}
+			],
+			"lines": [
+				{
+					"eventID": "Conquest_1",
+					"type": 0,
+					"requirements": 0,
+					"graphicID": -1,
+					"description": "You see something you want",
+					"options": [],
+					"weight": 1
+				}
+			],
+			"separators": [],
+			"props": {}
+		},
+		{
+			"name": "Event@options",
+			"props": {
+				"hide": true
+			},
+			"separators": [],
+			"lines": [],
+			"columns": []
 		}
 	],
 	"customTypes": [],
