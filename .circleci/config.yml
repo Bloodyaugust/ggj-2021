@@ -17,7 +17,7 @@ jobs:
 
       - run:
           name: set perms for public key
-          command: chmod 400 ~/.ssh/lobby_server_deploy2_rsa.pem
+          command: chmod 600 ~/.ssh/lobby_server_deploy2_rsa.pem
 
       - run:
           name: add server to known_hosts
