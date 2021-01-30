@@ -4,17 +4,17 @@ class System {
   constructor(chanceInstance) {
     this.planets = [];
     this.star = chanceInstance.weighted(
-      baseData.sheets.find(sheet => sheet.name === 'stars').lines.map(star => star.sequence),
+      baseData.sheets.find(sheet => sheet.name === 'stars').lines,
       baseData.sheets.find(sheet => sheet.name === 'stars').lines.map(star => star.weight)
     );
     this.position = {
       x: chanceInstance.floating({
-        min: -1000,
-        max: 1000
+        min: 0,
+        max: 1920
       }),
       y: chanceInstance.floating({
-        min: -1000,
-        max: 1000
+        min: 0,
+        max: 1080
       }),
     };
 

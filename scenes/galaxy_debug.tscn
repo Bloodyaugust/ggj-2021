@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/controllers/debug_renderer.gd" type="Script" id=1]
+[ext_resource path="res://resources/themes/kenney/kenney.tres" type="Theme" id=2]
+[ext_resource path="res://views/debug_systems_data.gd" type="Script" id=3]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="GetGalaxy" type="HTTPRequest" parent="."]
+
+[node name="DebugRenderer" type="Node2D" parent="."]
+script = ExtResource( 1 )
+min_star_size = 2.0
+star_scale = 1.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+anchor_bottom = 1.0
+rect_min_size = Vector2( 600, 0 )
+theme = ExtResource( 2 )
+text = "Loading..."
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
