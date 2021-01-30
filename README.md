@@ -1,6 +1,12 @@
-# godot-template
+# ggj-2021
 
-A template for Godot projects.
+An entry for Global Game Jam 2021!
+
+- Mike Gardone: Project Manager, Engineer
+- Evan Alley: Game Design, Data Manager
+- Anneke Davis: UI Design, Art
+- Joyce: Art
+- Greyson Richey: Engineer
 
 ## Dockerfile
 
