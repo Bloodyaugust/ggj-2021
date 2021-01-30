@@ -1,0 +1,35 @@
+[gd_scene format=2]
+
+[node name="PlanetContainer" type="PanelContainer"]
+margin_right = 1016.0
+margin_bottom = 28.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1009.0
+margin_bottom = 21.0
+custom_constants/separation = 139
+
+[node name="SystemName" type="Label" parent="HBoxContainer"]
+margin_right = 89.0
+margin_bottom = 14.0
+text = "SYSTEM NAME"
+
+[node name="CreditProduction" type="Label" parent="HBoxContainer"]
+margin_left = 228.0
+margin_right = 236.0
+margin_bottom = 14.0
+text = "0"
+
+[node name="Fuel" type="Label" parent="HBoxContainer"]
+margin_left = 375.0
+margin_right = 383.0
+margin_bottom = 14.0
+text = "0"
+
+[node name="Supplies" type="Label" parent="HBoxContainer"]
+margin_left = 522.0
+margin_right = 530.0
+margin_bottom = 14.0
+text = "0"
