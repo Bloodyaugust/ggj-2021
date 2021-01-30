@@ -5,7 +5,7 @@ An entry for Global Game Jam 2021!
 - Mike Gardone: Project Manager, Engineer
 - Evan Alley: Game Design, Data Manager
 - Anneke Davis: UI Design, Art
-- Joyce: Art
+- Joyce Shen: Art
 - Greyson Richey: Engineer
 
 ## Dockerfile
