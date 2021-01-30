@@ -1,0 +1,16 @@
+{
+  "name": "ggj-2021-server",
+  "version": "1.0.0",
+  "description": "Server for the GGJ-2021 entry this project represents",
+  "main": "index.js",
+  "author": "Greyson Richey",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "pm2 start index.js --watch"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "pm2": "^4.5.2"
+  }
+}
