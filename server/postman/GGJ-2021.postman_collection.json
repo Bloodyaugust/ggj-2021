@@ -1,0 +1,47 @@
+{
+	"info": {
+		"_postman_id": "00312ab3-ba06-40fe-8747-9a02a63b4369",
+		"name": "GGJ-2021",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Galaxy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "803aa726-947e-447f-8acc-5443cf17dc23",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Contains a list of star systems, which also contain planets\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.systems.length).to.above(0);\r",
+							"    pm.expect(jsonData.systems[0].star).not.undefined;\r",
+							"    pm.expect(jsonData.systems[0].position.x).to.be.an('number');\r",
+							"    pm.expect(jsonData.systems[0].position.y).to.be.an('number');\r",
+							"    pm.expect(jsonData.systems[0].planets).to.be.an('array');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_ROOT}}galaxy",
+					"host": [
+						"{{API_ROOT}}galaxy"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

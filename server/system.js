@@ -1,7 +1,5 @@
 const baseData = require('../data/base.json');
 
-const MAX_PLANETS_PER_SYSTEM = 8;
-
 class System {
   constructor(chanceInstance) {
     this.planets = [];
@@ -20,10 +18,10 @@ class System {
       }),
     };
 
-    const numPlanets = chanceInstance.integer({
-      min: 0,
-      max: MAX_PLANETS_PER_SYSTEM
-    });
+    const numPlanets = chanceInstance.weighted(
+      baseData.sheets.find(sheet => sheet.name === 'numPlanets').lines.map(num => num.num),
+      baseData.sheets.find(sheet => sheet.name === 'numPlanets').lines.map(num => num.weight)
+    );
 
     for (let i = 0; i < numPlanets; i++) {
       const planet = chanceInstance.weighted(baseData.sheets.find(sheet => sheet.name === 'planets').lines, baseData.sheets.find(sheet => sheet.name === 'planets').lines.map(planet => planet.weight));
