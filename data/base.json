@@ -136,6 +136,10 @@
 					"typeStr": "4",
 					"name": "weight",
 					"display": null
+				},
+				{
+					"typeStr": "4",
+					"name": "difficulty"
 				}
 			],
 			"lines": [
@@ -144,63 +148,72 @@
 					"credits": 0,
 					"fuel": 1,
 					"supplies": 5,
-					"weight": 25
+					"weight": 25,
+					"difficulty": 5
 				},
 				{
 					"type": "Gas",
 					"credits": 0,
 					"fuel": 6,
 					"supplies": 1,
-					"weight": 20
+					"weight": 20,
+					"difficulty": 10
 				},
 				{
 					"type": "Desert",
 					"credits": 5,
 					"fuel": 2,
 					"supplies": 3,
-					"weight": 10
+					"weight": 10,
+					"difficulty": 20
 				},
 				{
 					"type": "Lava",
 					"credits": 4,
 					"fuel": 1,
 					"supplies": 5,
-					"weight": 10
+					"weight": 10,
+					"difficulty": 20
 				},
 				{
 					"type": "Ocean",
 					"credits": 2,
 					"fuel": 5,
 					"supplies": 3,
-					"weight": 10
+					"weight": 10,
+					"difficulty": 20
 				},
 				{
 					"type": "Iron",
 					"credits": 3,
 					"fuel": 2,
 					"supplies": 5,
-					"weight": 10
+					"weight": 10,
+					"difficulty": 20
 				},
 				{
 					"type": "Ice",
 					"credits": 6,
 					"fuel": 3,
 					"supplies": 1,
-					"weight": 10
+					"weight": 10,
+					"difficulty": 20
 				},
 				{
 					"type": "Terrestrial",
 					"credits": 8,
 					"fuel": 7,
 					"supplies": 5,
-					"weight": 5
+					"weight": 5,
+					"difficulty": 30
 				},
 				{
 					"type": "Chthonian",
 					"credits": 0,
 					"fuel": 0,
 					"supplies": 0,
-					"weight": 1
+					"weight": 1,
+					"difficulty": 0
 				}
 			],
 			"separators": [],
