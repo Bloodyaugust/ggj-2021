@@ -2,6 +2,8 @@
 
 # set -e
 
+source ~/.bashrc
+
 which butler
 
 echo "Checking application versions..."
