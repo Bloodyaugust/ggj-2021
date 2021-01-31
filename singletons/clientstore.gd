@@ -47,11 +47,18 @@ func get_visit_status(sys_name: String)-> String:
 
 
 func set_visit_status(sys_name: String, state: String)-> void:
-  if (state!="owned")&&(state!="visited"):
+  if (state!="owned")&&(state!="visited")&&(state!="enemy_owned"):
     return
   if system_knowledge.has(sys_name):
     if (system_knowledge[sys_name]=="owned")&&(state=="visited"):
       return
+
+  if (state=="enemy_owned")&&(system_knowledge[sys_name]=="owned"):
+    system_knowledge[sys_name]=state
+    var owned=values["owned_systems"]-1
+    set_state("owned_systems",owned)
+    return
+
   system_knowledge[sys_name]=state
   if (state=="owned"):
     var owned=values["owned_systems"]+1
