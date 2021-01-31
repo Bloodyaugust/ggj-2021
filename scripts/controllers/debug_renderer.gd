@@ -1,5 +1,6 @@
 extends Node2D
 
+export var use_remote: bool
 export var min_star_size: float
 export var star_scale: float
 
@@ -27,7 +28,7 @@ func _on_request_completed(response, code, headers, body):
     if _systems_data.has(_system.star.sequence):
       _systems_data[_system.star.sequence] += 1
     else:
-      _systems_data[_system.star.sequence] = 0
+      _systems_data[_system.star.sequence] = 1
 
   Store.set_state("systems_data", _systems_data)
 
@@ -37,4 +38,7 @@ func _process(_delta):
 func _ready():
   _get_galaxy.connect("request_completed", self, "_on_request_completed")
 
-  _get_galaxy.request("http://localhost:3000/galaxy")
+  if use_remote:
+    _get_galaxy.request(ClientConstants.ENDPOINT_REMOTE + "galaxy")
+  else:
+    _get_galaxy.request(ClientConstants.ENDPOINT_LOCAL + "galaxy")

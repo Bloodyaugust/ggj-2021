@@ -10,6 +10,7 @@
 
 [node name="DebugRenderer" type="Node2D" parent="."]
 script = ExtResource( 1 )
+use_remote = true
 min_star_size = 2.0
 star_scale = 1.0
 
