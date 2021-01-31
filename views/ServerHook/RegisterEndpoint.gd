@@ -21,12 +21,15 @@ func _send_endpoint_completed(result, response_code, headers, body):
   elif response_code == 500:
     # Mostly an ID error, try again
     var id = rng.randi()
-    var query = "{id:" + str(id) +"}"
-    Store.set_state("uid", query)
-    _send_endpoint.request("http://localhost:3000/register", [], true, HTTPClient.METHOD_POST, query)
+    var query = to_json({ "userID": str(id) })
+    Store.set_state("uid", id)
+    _send_endpoint.request("http://localhost:3000/register", ClientConstants.HEADER, \
+      true, HTTPClient.METHOD_POST, query)
   else:
     if connectAttempts < limitedAttempts:
-      _send_endpoint.request("http://localhost:3000/register", [], true, HTTPClient.METHOD_POST, Store.state["uid"])
+      var query = to_json({ "userID": str(Store.state["uid"]) })
+      _send_endpoint.request("http://localhost:3000/register", ClientConstants.HEADER, \
+        true, HTTPClient.METHOD_POST, query)
       connectAttempts += 1
     else:
       emit_signal("connection_attempts_expired")
@@ -39,9 +42,9 @@ func _attempt_connection():
   if file.file_exists("res://player.info") == false:
     rng.randomize()
     var id = rng.randi()
-    var query = "{id:" + str(id) +"}"
+    var query = to_json({ "userID": str(id) })
     Store.set_state("uid", str(id))
-    _send_endpoint.request("http://localhost:3000/register", [], true, HTTPClient.METHOD_POST, query)
+    _send_endpoint.request("http://localhost:3000/register", ClientConstants.HEADER, true, HTTPClient.METHOD_GET, query)
   else:
     file.open("res://player.info", File.READ)
     var uid = file.get_var()

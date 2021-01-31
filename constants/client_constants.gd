@@ -7,3 +7,5 @@ const CLIENT_VIEW_NONE = "CLIENT_VIEW_NONE"
 
 const ENDPOINT_LOCAL = "http://localhost:3000/"
 const ENDPOINT_REMOTE = "http://192.81.135.83:3000/"
+
+const HEADER = ["Content-Type: application/json; charset=utf-8"]

@@ -16,11 +16,13 @@ func _on_Button2_pressed():
   var rng = RandomNumberGenerator.new()
   rng.randomize()
   var name = _systems[rng.randi_range(0, _systems.size())].name
-  print(name)
-  #$ServerHook/SetOwnershipEndpoint._attempt_control("")
+  $ServerHook/SetOwnershipEndpoint._attempt_control(name)
 
 func _on_Button3_pressed():
-  #$ServerHook/ExplorationEndpoint._attempt_explore()
+  var rng = RandomNumberGenerator.new()
+  rng.randomize()
+  var name = _systems[rng.randi_range(0, _systems.size())].name
+  $ServerHook/ExplorationEndpoint._attempt_exploration(name)
   pass
 
 func _on_Button4_pressed():
