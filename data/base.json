@@ -332,8 +332,13 @@
 					"name": "eventID"
 				},
 				{
-					"typeStr": "5:Conquest",
+					"typeStr": "5:Conquest,Empty",
 					"name": "type"
+				},
+				{
+					"typeStr": "1",
+					"name": "title",
+					"display": null
 				},
 				{
 					"typeStr": "10:",
@@ -360,12 +365,33 @@
 			"lines": [
 				{
 					"eventID": "Conquest_1",
-					"type": 0,
 					"requirements": 0,
 					"graphicID": -1,
 					"description": "You see something you want",
 					"options": [],
-					"weight": 1
+					"weight": 1,
+					"title": "System Conquest",
+					"type": 0
+				},
+				{
+					"eventID": "Empty_1",
+					"title": "Empty System",
+					"requirements": 0,
+					"graphicID": -1,
+					"description": "Nothing to see here",
+					"options": [],
+					"weight": 1,
+					"type": 1
+				},
+				{
+					"eventID": "Empty_2",
+					"title": "Another Empty System",
+					"requirements": 0,
+					"graphicID": -1,
+					"description": "Nothing interesting to see here",
+					"options": [],
+					"weight": 1,
+					"type": 1
 				}
 			],
 			"separators": [],
