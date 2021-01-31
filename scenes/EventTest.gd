@@ -35,6 +35,8 @@ func _ready():
     wtable.initialize_table(event_tables[table_type])
     weighted_events[table_type]=wtable
 
+  $GUI/EventPopup.connect("choice_selected",self,"_on_choiceSelected")
+
 
 #func _process(_delta):
   #update()
@@ -95,7 +97,7 @@ func populate_event(event):
     "0":  # conquor
       $GUI/EventPopup._display_button_text([
           {"text":"Use supplies to take system","disabled":false},
-          {"text":"Use credits to take system","disabled":false},
+          {"text":"Use credits to take system","disabled":true},
           {"text":"Continue on","disabled":false}])
     "1":  # Empty system
       $GUI/EventPopup._display_button_text([
@@ -129,3 +131,7 @@ func _on_request_completed(response, code, headers, body):
 
 func _on_SpinBox_value_changed(value):
   travel_to_system(value)
+
+
+func _on_choiceSelected(value):
+  print(value)

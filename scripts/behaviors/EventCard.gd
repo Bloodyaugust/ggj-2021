@@ -1,6 +1,6 @@
 extends WindowDialog
 
-signal choice
+signal choice_selected
 
 onready var titleNode = get_node("EventPlacard/PanelContainer/EventTitle")
 onready var flavorText = get_node("EventPlacard/Panel/FlavorText")
@@ -53,7 +53,9 @@ func _set_event_title(text: String):
 func _on_optionSelected(value):
   if (value<=max_options):
     emit_signal("choice_selected",value)
-  emit_signal("choice_selected",-1)
+  else:
+    emit_signal("choice_selected",-1)
+  hide()
 
 
 
