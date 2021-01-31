@@ -13,6 +13,7 @@ star_system_actor = ExtResource( 3 )
 current = true
 zoom = Vector2( 10, 10 )
 script = ExtResource( 1 )
+zoom_out_limit = 20
 zoom_speed = 0.5
 zoom_min = 0.5
 
