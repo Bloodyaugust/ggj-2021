@@ -13,8 +13,8 @@ const chanceInstance = new Chance();
 const players = {};
 const systems = [];
 
-const gameOver = false;
-const winnerID = null;
+var gameOver = false;
+var winnerID = null;
 
 function generateGalaxy() {
   for (let i = 0; i < SYSTEMS_PER_GALAXY; i++) {
@@ -35,12 +35,10 @@ app.get('/gameover', function(req, res) {
 	})
 });
 
-app.get('/won', function(req, res) {
-	const { winner } = req.body;
+app.post('/won', function(req, res) {
+	const { userID } = req.body;
 	gameOver = true;
-	winnerID = winner;
-	
-	console.log(req.body);
+	winnerID = userID;
 	
 	res.json({
 		gameStatus: gameOver,
