@@ -32,7 +32,8 @@ var systems: Dictionary = {}
 func set_state(val_key: String, val) -> void:
   values[val_key] = val
   emit_signal("resources_changed", val_key, values[val_key])
-  print("Client resources changed: ", val_key, " -> ", values[val_key])
+  if (val_key!="fuel"):
+    print("Client resources changed: ", val_key, " -> ", values[val_key])
 
 
 func get_state(val_key: String):
