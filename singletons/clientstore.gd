@@ -15,7 +15,7 @@ var values: Dictionary = {
   "owned_systems":0
  }
 
-# Key Value Pair 
+# Key Value Pair
 var systems: Dictionary = {}
 
 func set_state(val_key: String, val) -> void:
@@ -33,7 +33,7 @@ func set_system(sys_key: String, sys) -> void:
 
 func get_system(val_key: String):
   return systems[val_key]
-  
+
 func _initialize():
   pass
 
