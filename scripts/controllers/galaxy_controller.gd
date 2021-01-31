@@ -3,7 +3,10 @@ extends Node
 var _galaxy_getter: HTTPRequest
 
 func load_galaxy() -> void:
-  _galaxy_getter.request(ClientConstants.ENDPOINT_LOCAL + "galaxy")
+  if OS.has_feature("standalone"):
+    _galaxy_getter.request(ClientConstants.ENDPOINT_REMOTE + "galaxy")
+  else:
+    _galaxy_getter.request(ClientConstants.ENDPOINT_LOCAL + "galaxy")
 
 func _on_galaxy_getter_request_completed(response, code, headers, body):
   var _json = JSON.parse(body.get_string_from_utf8())
