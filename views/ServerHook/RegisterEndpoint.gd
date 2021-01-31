@@ -1,16 +1,12 @@
 extends Node
 
-signal connection_attempts_expired()
-signal connection_established()
-
-onready var _send_endpoint: HTTPRequest = $"RegisterEndpoint/Register"
+onready var _send_endpoint: HTTPRequest = $"Register"
 
 var connectAttempts = 0
 var limitedAttempts = 25
 
 var rng = RandomNumberGenerator.new()
 
-# Our attempt to connect to the server
 func _send_endpoint_completed(result, response_code, headers, body):
   print(response_code)
   if response_code == 200:
@@ -33,12 +29,10 @@ func _send_endpoint_completed(result, response_code, headers, body):
     else:
       emit_signal("connection_attempts_expired")
       print("ran out of connection attempts")
-  
-func _ready():
-  _send_endpoint.connect("request_completed", self, "_send_endpoint_completed")
-  
-  # Prepare our UID and send it off to the server for registering
-  # ONLY RUN IF WE DON'T HAVE AN IDEA ALREADY
+
+# Prepare our UID and send it off to the server for registering
+# ONLY RUN IF WE DON'T HAVE AN IDEA ALREADY
+func _attempt_connection():
   var file = File.new()
   if file.file_exists("res://player.info") == false:
     rng.randomize()
@@ -51,3 +45,8 @@ func _ready():
     var uid = file.get_var()
     file.close()
     Store.set_state("uid", uid)
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+  _send_endpoint.connect("request_completed", self, "_send_endpoint_completed")
+  
