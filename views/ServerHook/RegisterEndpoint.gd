@@ -20,13 +20,24 @@ func _send_endpoint_completed(result, response_code, headers, body):
     var id = rng.randi()
     var query = to_json({ "userID": str(id) })
     Store.set_state("uid", id)
-    _send_endpoint.request(ClientConstants.ENDPOINT_LOCAL + "register", ClientConstants.HEADER, \
-      true, HTTPClient.METHOD_POST, query)
+    
+    if ClientConstants.USE_LOCAL:
+      _send_endpoint.request(ClientConstants.ENDPOINT_LOCAL + "register", ClientConstants.HEADER,\
+        true, HTTPClient.METHOD_POST, query)
+    else:
+      _send_endpoint.request(ClientConstants.ENDPOINT_REMOTE + "register", ClientConstants.HEADER,\
+        true, HTTPClient.METHOD_POST, query)
   else:
     if connectAttempts < limitedAttempts:
       var query = to_json({ "userID": str(Store.state["uid"]) })
-      _send_endpoint.request(ClientConstants.ENDPOINT_LOCAL + "register", ClientConstants.HEADER, \
-        true, HTTPClient.METHOD_POST, query)
+      
+      if ClientConstants.USE_LOCAL:
+        _send_endpoint.request(ClientConstants.ENDPOINT_LOCAL + "register", ClientConstants.HEADER,\
+          true, HTTPClient.METHOD_POST, query)
+      else:
+        _send_endpoint.request(ClientConstants.ENDPOINT_REMOTE + "register", ClientConstants.HEADER,\
+          true, HTTPClient.METHOD_POST, query)
+      
       connectAttempts += 1
     else:
       emit_signal("connection_attempts_expired")
@@ -39,8 +50,13 @@ func _attempt_connection():
   var id = rng.randi()
   var query = to_json({ "userID": str(id) })
   Store.set_state("uid", str(id))
-  _send_endpoint.request(ClientConstants.ENDPOINT_LOCAL + "register", ClientConstants.HEADER,\
-     true, HTTPClient.METHOD_GET, query)
+  
+  if ClientConstants.USE_LOCAL:
+    _send_endpoint.request(ClientConstants.ENDPOINT_LOCAL + "register", ClientConstants.HEADER,\
+      true, HTTPClient.METHOD_POST, query)
+  else:
+    _send_endpoint.request(ClientConstants.ENDPOINT_REMOTE + "register", ClientConstants.HEADER,\
+      true, HTTPClient.METHOD_POST, query)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

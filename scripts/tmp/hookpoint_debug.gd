@@ -14,6 +14,7 @@ func _on_state_changed(state_key, substate):
 
 func _on_Button_pressed():
   $ServerHook/RegisterEndpoint._attempt_connection()
+  $ServerHook._start_Timer()
 
 func _on_Button2_pressed():
   var rng = RandomNumberGenerator.new()
