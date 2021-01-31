@@ -2,7 +2,7 @@
 
 [ext_resource path="res://views/Hookpoint.gd" type="Script" id=1]
 
-[node name="InternetPin" type="Node"]
+[node name="ServerHook" type="Node"]
 script = ExtResource( 1 )
 
 [node name="GetGalaxy" type="HTTPRequest" parent="."]

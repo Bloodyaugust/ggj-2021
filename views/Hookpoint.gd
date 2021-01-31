@@ -38,9 +38,6 @@ func _ready():
   _send_endpoint.connect("request_completed", self, "_send_endpoint_completed")
   _explore.connect("request_completed", self, "_on_request_completed")
   
-  # Get the galaxy information
-  #_get_galaxy.request("http://localhost:3000/galaxy")
-  
   # Prepare our UID and send it off to the server for registering
   # ONLY RUN IF WE DON'T HAVE AN IDEA ALREADY
   var file = File.new()
