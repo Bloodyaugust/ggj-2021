@@ -7,14 +7,18 @@ func _on_request_completed(response, code, headers, body):
 
   var _systems: Array = _json.result.systems
 
-  var _systems_data: Dictionary = {}
-  for _system in _systems:
-    if _systems_data.has(_system.star.sequence):
-      _systems_data[_system.star.sequence] += 1
-    else:
-      _systems_data[_system.star.sequence] = 0
+  #var _systems_data: Dictionary = {}
+  #for _system in _systems:
+  #  if _systems_data.has(_system.star.sequence):
+  #    _systems_data[_system.star.sequence] += 1
+  #  else:
+  #    _systems_data[_system.star.sequence] = 0
 
-  Store.set_state("systems_data", _systems_data)
+  #Clientstore.set_state("systems_data", _systems_data)
+  Clientstore.set_state("systems", _systems)
+
+func _request_galaxy():
+  _get_galaxy.request(ClientConstants.ENDPOINT_LOCAL + "galaxy")
 
 func _ready():
   _get_galaxy.connect("request_completed", self, "_on_request_completed")

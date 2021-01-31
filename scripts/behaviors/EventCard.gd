@@ -2,9 +2,9 @@ extends WindowDialog
 
 signal choice_selected
 
-onready var titleNode = get_node("EventPlacard/PanelContainer/EventTitle")
-onready var flavorText = get_node("EventPlacard/Panel/FlavorText")
-onready var eventPic = get_node("EventPlacard/EventPicture")
+onready var titleNode = get_node("EventPlacard/VBoxContainer/PanelContainer/EventTitle")
+onready var flavorText = get_node("EventPlacard/VBoxContainer/PanelContainer2/FlavorText")
+onready var eventPic = get_node("EventPlacard/VBoxContainer/EventPicture")
 onready var optionContainer = get_node("EventPlacard/OptionContainer")
 
 var max_options=-1

@@ -10,32 +10,67 @@ var values: Dictionary = {
   "fuel":0,
   # Om nom nom nom I like food... Why is my tooth chipped?
   "supplies":0,
-  # The Borg would like to know your location
   # The different systems under the player's control, stored locally
-  "owned_systems":0
+  "owned_systems":0,
+
+  # reputations
+  "rep_merchants": 0,
+  "rep_pirates": 0,
  }
 
-# Key Value Pair 
+# This is a key/value entry for each planet we know about
+# key = system name (canonical name, not player name)
+# value = "visited" or "owned"
+var system_knowledge: Dictionary = {
+
+ }
+
+# Key Value Pair
 var systems: Dictionary = {}
+
 
 func set_state(val_key: String, val) -> void:
   values[val_key] = val
   emit_signal("resources_changed", val_key, values[val_key])
   print("State changed: ", val_key, " -> ", values[val_key])
 
+
 func get_state(val_key: String):
   return values[val_key]
+
+
+func get_visit_status(sys_name: String)-> String:
+  if system_knowledge.has(sys_name):
+    return system_knowledge[sys_name]
+  else:
+    return("unknown")
+
+
+func set_visit_status(sys_name: String, state: String)-> void:
+  if (state!="owned")&&(state!="visited"):
+    return
+  if system_knowledge.has(sys_name):
+    if (system_knowledge[sys_name]=="owned")&&(state=="visited"):
+      return
+  system_knowledge[sys_name]=state
+  if (state=="owned"):
+    var owned=values["owned_systems"]+1
+    set_state("owned_systems",owned)
+
 
 func set_system(sys_key: String, sys) -> void:
   systems[sys_key] = sys
   emit_signal("systems_changed", sys_key, sys[sys_key])
   print("State changed: ", sys_key, " -> ", systems[sys_key])
 
+
 func get_system(val_key: String):
   return systems[val_key]
-  
+
+
 func _initialize():
   pass
+
 
 func _ready():
   call_deferred("_initialize")
