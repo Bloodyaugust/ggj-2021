@@ -345,7 +345,7 @@
 					"name": "requirements"
 				},
 				{
-					"typeStr": "3",
+					"typeStr": "1",
 					"name": "graphicID"
 				},
 				{
@@ -366,7 +366,7 @@
 				{
 					"eventID": "Conquest_1",
 					"requirements": 0,
-					"graphicID": -1,
+					"graphicID": "conquer",
 					"description": "You see something you want",
 					"options": [],
 					"weight": 1,
@@ -377,7 +377,7 @@
 					"eventID": "Empty_1",
 					"title": "Empty System",
 					"requirements": 0,
-					"graphicID": -1,
+					"graphicID": "",
 					"description": "Nothing to see here",
 					"options": [],
 					"weight": 1,
@@ -387,7 +387,7 @@
 					"eventID": "Empty_2",
 					"title": "Another Empty System",
 					"requirements": 0,
-					"graphicID": -1,
+					"graphicID": "",
 					"description": "Nothing interesting to see here",
 					"options": [],
 					"weight": 1,
