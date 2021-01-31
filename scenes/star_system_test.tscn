@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/carmel4a97.RTS_Camera2D/RTS-Camera2D.gd" type="Script" id=1]
+[ext_resource path="res://scripts/controllers/star_system_test_controller.gd" type="Script" id=2]
+[ext_resource path="res://actors/star_system/StarSystem.tscn" type="PackedScene" id=3]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+star_system_actor = ExtResource( 3 )
+
+[node name="RTS-Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 10, 10 )
+script = ExtResource( 1 )
+zoom_speed = 0.5
+zoom_min = 0.5
+
+[node name="Systems" type="Node" parent="."]

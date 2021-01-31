@@ -40,6 +40,7 @@ GDUtil="*res://lib/util/GDUtil.gd"
 ClientConstants="*res://constants/client_constants.gd"
 GameConstants="*res://constants/game_constants.gd"
 Clientstore="*res://singletons/clientstore.gd"
+GalaxyController="*res://scripts/controllers/galaxy_controller.gd"
 
 [display]
 
