@@ -32,7 +32,7 @@ var systems: Dictionary = {}
 func set_state(val_key: String, val) -> void:
   values[val_key] = val
   emit_signal("resources_changed", val_key, values[val_key])
-  print("State changed: ", val_key, " -> ", values[val_key])
+  print("Client resources changed: ", val_key, " -> ", values[val_key])
 
 
 func get_state(val_key: String):
@@ -61,7 +61,7 @@ func set_visit_status(sys_name: String, state: String)-> void:
 func set_system(sys_key: String, sys) -> void:
   systems[sys_key] = sys
   emit_signal("systems_changed", sys_key, sys[sys_key])
-  print("State changed: ", sys_key, " -> ", systems[sys_key])
+  print("Client system changed: ", sys_key, " -> ", systems[sys_key])
 
 func get_system(val_key: String):
   return systems[val_key]

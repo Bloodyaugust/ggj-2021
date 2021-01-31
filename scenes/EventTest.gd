@@ -1,10 +1,5 @@
 extends Node2D
 
-onready var _get_galaxy: HTTPRequest = $GetGalaxy
-onready var _tree := get_tree()
-
-var _systems: Array
-
 # event selection variables
 var seeded_rnd = RandomNumberGenerator.new()
 var regex = RegEx.new()
@@ -22,14 +17,16 @@ func _ready():
   $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/SystemID.text="Travelling to system: "
   $GUI/EventPopup.visible=false
 
-  _get_galaxy.connect("request_completed", self, "_on_request_completed")
-  _get_galaxy.request("http://localhost:3000/galaxy")
-
   Clientstore.set_state("supplies",rand_range(40,60))
   Clientstore.set_state("credits",rand_range(50,100))
   Clientstore.set_state("fuel",rand_range(180,220))
 
   # --- normal init
+  # set-up connections
+  Store.connect("state_changed", self, "_on_galaxy_loaded")
+  $GUI/EventPopup.connect("choice_selected",self,"_on_choiceSelected")
+  Clientstore.connect("resources_changed",self,"_resources_changed")
+
   # Create event probablity tables
   var event_tables={}
   var all_events=Castledb.get_entries("Event")
@@ -45,14 +42,10 @@ func _ready():
     wtable.initialize_table(event_tables[table_type])
     weighted_events[table_type]=wtable
 
-  # update UI by faking a resource change
-  _resources_changed("",0)
-
-  # set-up connections
-  $GUI/EventPopup.connect("choice_selected",self,"_on_choiceSelected")
-  Clientstore.connect("resources_changed",self,"_resources_changed")
   regex.compile("({[^}]+})")
 
+  # update UI by faking a resource change
+  _resources_changed("",0)
 
 func _resources_changed(_key, _value):
   $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/PlanetsLabel.text="Systems Owned: "+str(int(Clientstore.get_state("owned_systems")))
@@ -66,12 +59,12 @@ func _resources_changed(_key, _value):
 
 func update_current_system():
   var idx=current_system_idx
-  if (idx>=_systems.size()):
+  if (idx>=Store.state.systems.size()):
     print("Off the map!")
     idx=0
 
   # seed rng, so we can recreate
-  current_system=_systems[idx].duplicate()
+  current_system=Store.state.systems[idx].duplicate()
   var loc=str(current_system.position.x)+str(current_system.position.y)
   seeded_rnd.set_seed(loc.hash())
 
@@ -96,7 +89,7 @@ func display_system(system):
   $GUI/Control/MarginContainer/VBoxContainer/SystemInfo.text=text
 
 
-func travel_to_system(value):
+func arrive_at_system(value):
   current_system_idx=value
   update_current_system()
   display_system(current_system)
@@ -179,29 +172,18 @@ func populate_event(event):
   $GUI/EventPopup.popup_centered()
 
 
-func _on_request_completed(response, code, headers, body):
-  var _json = JSON.parse(body.get_string_from_utf8())
-
-  _systems = _json.result.systems
-
-  var _systems_data: Dictionary = {}
-  for _system in _systems:
-    if _systems_data.has(_system.star.sequence):
-      _systems_data[_system.star.sequence] += 1
-    else:
-      _systems_data[_system.star.sequence] = 0
-  Store.set_state("systems_data", _systems_data)
-
+func _on_galaxy_loaded(key,_value):
   # start at the very beginning
-  $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/SpinBox.min_value=0
-  $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/SpinBox.max_value=_systems.size()
-  $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/SpinBox.value=0
-  $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/SystemID.text="Arrived in system: "
-  travel_to_system(0)
+  if (key=="systems"):
+    $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/SpinBox.min_value=0
+    $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/SpinBox.max_value=Store.state.systems.size()
+    $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/SpinBox.value=0
+    $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/SystemID.text="Arrived in system: "
+    arrive_at_system(0)
 
 
 func _on_SpinBox_value_changed(value):
-  travel_to_system(value)
+  arrive_at_system(value)
 
 
 func _on_choiceSelected(value):

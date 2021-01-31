@@ -14,7 +14,10 @@ var state: Dictionary = {
 func set_state(state_key: String, new_state) -> void:
   state[state_key] = new_state
   emit_signal("state_changed", state_key, state[state_key])
-  print("State changed: ", state_key, " -> ", state[state_key])
+  if (state_key=="systems"):
+    print("State changed: ", state_key, " -> ", JSON.print(state[state_key]).left(500)," ...")
+  else:
+    print("State changed: ", state_key, " -> ", state[state_key])
 
 func _initialize():
   set_state("client_view", ClientConstants.CLIENT_VIEW_MAIN_MENU)
