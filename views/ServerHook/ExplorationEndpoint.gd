@@ -7,7 +7,7 @@ func _request_completed(result, response_code, headers, body):
     var json = JSON.parse(body.get_string_from_utf8()).result
     print(json)
     var system_data = [json["system"]["name"], json["system"]["explorers"], json["system"]["owner"]]
-    Store.set_state("exploration", system_data)
+    Clientstore.set_state("exploration", system_data)
 
 func _attempt_exploration(sys_id: String):
   var query = to_json({"userID": str(Store.state["uid"]), "systemName":sys_id})

@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://views/ServerHook/RenameEndpoint.gd" type="Script" id=1]
 [ext_resource path="res://views/ServerHook/RegisterEndpoint.gd" type="Script" id=2]
 [ext_resource path="res://views/ServerHook/GalaxyEndpoint.gd" type="Script" id=3]
 [ext_resource path="res://views/ServerHook/ExplorationEndpoint.gd" type="Script" id=4]
 [ext_resource path="res://views/ServerHook/OwnershipEndpoint.gd" type="Script" id=5]
+[ext_resource path="res://views/Hookpoint.gd" type="Script" id=6]
 
 [node name="ServerHook" type="Node"]
+script = ExtResource( 6 )
 
 [node name="GetGalaxyEndpoint" type="Node" parent="."]
 script = ExtResource( 3 )

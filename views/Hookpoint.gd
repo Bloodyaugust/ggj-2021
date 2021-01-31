@@ -1,4 +1,16 @@
 extends Node
 
-func _ready():
-  pass
+func _attempt_exploration(sys_actor):
+  $ExplorationEndpoint._attempt_exploration(sys_actor.system.name)
+
+func _request_galaxy():
+  $RegisterEndpoint._attempt_connection()
+
+func _attempt_control(sys_actor):
+  $SetOwnershipEndpoint._attempt_control(sys_actor.system.name)
+
+func _attempt_connection():
+  $RegisterEndpoint._attempt_connection()
+
+func _attempt_rename(sys_actor, sys_name: String):
+  $RenameEndpoint._attempt_rename(sys_actor.system.name, sys_name)
