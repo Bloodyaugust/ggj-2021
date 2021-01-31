@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://views/ServerHook/RenameEndpoint.gd" type="Script" id=1]
 [ext_resource path="res://views/ServerHook/RegisterEndpoint.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://views/ServerHook/ExplorationEndpoint.gd" type="Script" id=4]
 [ext_resource path="res://views/ServerHook/OwnershipEndpoint.gd" type="Script" id=5]
 [ext_resource path="res://views/Hookpoint.gd" type="Script" id=6]
+[ext_resource path="res://views/ServerHook/GameEndEndpoint.gd" type="Script" id=7]
+[ext_resource path="res://views/ServerHook/SetWonEndpoint.gd" type="Script" id=8]
 
 [node name="ServerHook" type="Node"]
 script = ExtResource( 6 )
@@ -34,3 +36,16 @@ script = ExtResource( 5 )
 script = ExtResource( 1 )
 
 [node name="Rename" type="HTTPRequest" parent="RenameEndpoint"]
+
+[node name="GameEndEndpoint" type="Node" parent="."]
+script = ExtResource( 7 )
+
+[node name="GameEnd" type="HTTPRequest" parent="GameEndEndpoint"]
+
+[node name="Timer" type="Timer" parent="GameEndEndpoint"]
+
+[node name="SetWonEndpoint" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[node name="WonEndpoint" type="HTTPRequest" parent="SetWonEndpoint"]
+[connection signal="timeout" from="GameEndEndpoint/Timer" to="GameEndEndpoint" method="_on_Timer_timeout"]
