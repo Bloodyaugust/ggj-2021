@@ -18,7 +18,7 @@ var _selected: bool
 var _target: Node2D
 
 func _on_area2d_input_event(node, event, shape_index):
-  if (event is InputEventMouseButton && event.pressed) || (event is InputEventScreenTouch && event.pressed):
+  if (event is InputEventMouseButton && event.pressed && (event.button_index == BUTTON_LEFT || event.button_index == BUTTON_RIGHT)) || (event is InputEventScreenTouch && event.pressed):
     Store.set_state("selection", self)
 
 func _on_store_state_changed(state_key, substate):

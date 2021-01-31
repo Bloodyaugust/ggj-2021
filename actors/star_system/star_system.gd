@@ -17,7 +17,7 @@ func initialize(new_system: Dictionary) -> void:
   _collision_shape.shape.radius = (_sprite.texture.get_size().x * _sprite.scale.x) / 2
 
 func _on_area2d_input_event(node, event, shape_index):
-  if (event is InputEventMouseButton && event.pressed) || (event is InputEventScreenTouch && event.pressed):
+  if (event is InputEventMouseButton && event.pressed && (event.button_index == BUTTON_LEFT || event.button_index == BUTTON_RIGHT)) || (event is InputEventScreenTouch && event.pressed):
     Store.set_state("target", self)
 
 func _ready():
