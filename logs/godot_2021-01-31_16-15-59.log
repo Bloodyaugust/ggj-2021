@@ -1,0 +1,11 @@
+Godot Engine v3.2.3.stable.official - https://godotengine.org
+OpenGL ES 3.0 Renderer: GeForce GTX 1070/PCIe/SSE2
+ 
+**WARNING**: Font oversampling only works with the resize modes 'Keep Width', 'Keep Height', and 'Expand'.
+   At: scene/main/scene_tree.cpp:1153:_update_root_rect() - Font oversampling only works with the resize modes 'Keep Width', 'Keep Height', and 'Expand'.
+State changed: client_view -> CLIENT_VIEW_MAIN_MENU
+State changed: game -> GAME_OVER
+**WARNING**: Font oversampling only works with the resize modes 'Keep Width', 'Keep Height', and 'Expand'.
+   At: scene/main/scene_tree.cpp:1153:_update_root_rect() - Font oversampling only works with the resize modes 'Keep Width', 'Keep Height', and 'Expand'.
+State changed: client_view -> CLIENT_VIEW_ABOUT
+State changed: client_view -> CLIENT_VIEW_MAIN_MENU
