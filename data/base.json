@@ -466,7 +466,7 @@
 					"graphicID": "",
 					"description": "You join a landing party headed for a desert planet. {The shuttle feels as if it will shake itself apart, but you land safely in a human settlement./After a smooth ride down, you find yourself in a human settlement./The shuttle barrels towards the planet, and soon you arrive at a human settlement./Your shuttle shakes its way into a human settlement.} Sand scatters as your shuttle settles down on an old landing platform. {Mechanical obelisks whirr and chatter, and you can only guess at what they’re saying to one another./ Dunes stretch over the distant horizons, interrupted only by the ancient remains of a mining settlement, claimed for shelter by the locals./ Old structures are half buried by the sand, but it’s clear that there are still people living here.}",
 					"weight": 10,
-					"options": 0
+					"options": 1
 				},
 				{
 					"eventID": "Body_6",
