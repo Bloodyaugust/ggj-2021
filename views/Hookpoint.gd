@@ -47,8 +47,8 @@ func _ready():
   if file.file_exists("res://player.info") == false:
     rng.randomize()
     var id = rng.randi()
-    var query = "{id:" + str(0) +"}"
-    Store.set_state("uid", "0")
+    var query = "{id:" + str(id) +"}"
+    Store.set_state("uid", str(id))
     _send_endpoint.request("http://localhost:3000/register", [], true, HTTPClient.METHOD_POST, query)
   else:
     file.open("res://player.info", File.READ)
