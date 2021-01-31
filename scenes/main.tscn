@@ -20,6 +20,13 @@
 [node name="BackgroundParallax" parent="." instance=ExtResource( 14 )]
 
 [node name="RTS-Camera2D" parent="." instance=ExtResource( 2 )]
+zoom = Vector2( 5, 5 )
+limit_left = -31000
+limit_top = -20000
+limit_right = 31000
+limit_bottom = 20000
+zoom_out_limit = 9
+zoom_min = 3.0
 
 [node name="UIRoot" type="CanvasLayer" parent="."]
 

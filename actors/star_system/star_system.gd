@@ -16,7 +16,7 @@ func initialize(new_system: Dictionary) -> void:
   var _scale_modifier: float = lerp(-0.05, 0.15, system.star.size / 30.0)
 
   _sprite.modulate = Color(system.star.colorHex)
-  global_position = Vector2(system.position.x * 25, system.position.y * 25)
+  global_position = Vector2((system.position.x - 960) * 25, (system.position.y - 540) * 25)
   _sprite.scale = Vector2(0.15 + _scale_modifier, 0.15 + _scale_modifier)
   _collision_shape.shape.radius = (_sprite.texture.get_size().x * _sprite.scale.x) / 2
 
