@@ -26,7 +26,7 @@ echo "-----------------------------"
 godot --export "Mac OSX" build/osx/ggj-2021.dmg -v
 echo "EXPORTING FOR WINDOZE"
 echo "-----------------------------"
-godot --export "Windows Desktop" build/win/ggj-2021.exe -v
+godot --export-debug "Windows Desktop" build/win/ggj-2021.exe -v
 echo "-----------------------------"
 
 echo "CHANGING FILETYPE AND CHMOD EXECUTABLE FOR OSX"
