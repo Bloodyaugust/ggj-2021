@@ -25,6 +25,17 @@ app.get('/galaxy', function (req, res) {
   })
 });
 
+app.post('/rename', (req, res) => {
+	const { userID, systemID, systemName } = req.body;
+	const renamedSystem = systems.find(system => system.name == systemID);
+	
+	renamedSystem.rename(systemName, userID);
+	
+	res.json({
+		system: renamedSystem
+	});
+});
+
 app.post('/explore', (req, res) => {
   const { userID, systemName } = req.body;
   const exploringSystem = systems.find(system => system.name === systemName);

@@ -7,6 +7,7 @@ var _systems: Array
 
 # event selection variables
 var seeded_rnd = RandomNumberGenerator.new()
+var regex = RegEx.new()
 var weighted = preload("res://lib/chance/WeightedTable.gd")
 var events={}
 var weighted_events={}
@@ -24,9 +25,9 @@ func _ready():
   _get_galaxy.connect("request_completed", self, "_on_request_completed")
   _get_galaxy.request("http://localhost:3000/galaxy")
 
-  Clientstore.set_state("supplies",50)
-  Clientstore.set_state("credits",10)
-  Clientstore.set_state("fuel",500)
+  Clientstore.set_state("supplies",rand_range(40,60))
+  Clientstore.set_state("credits",rand_range(50,100))
+  Clientstore.set_state("fuel",rand_range(180,220))
 
   # --- normal init
   # Create event probablity tables
@@ -50,6 +51,7 @@ func _ready():
   # set-up connections
   $GUI/EventPopup.connect("choice_selected",self,"_on_choiceSelected")
   Clientstore.connect("resources_changed",self,"_resources_changed")
+  regex.compile("({[^}]+})")
 
 
 func _resources_changed(_key, _value):
@@ -112,6 +114,24 @@ func travel_to_system(value):
     populate_event(event)
 
 
+func randomize_flavor_text(text)->String:
+# take text like:
+#   Your {shuttle/ship} sets down on a landing platform. {You stare apprehensively down./The floating station sways./You fall over.}"
+# Where blocks inside of {} replaced with an even choice of / divided phrases
+  var text_out=""
+  while(!text.empty()):
+    var m=regex.search(text)
+    if (m==null):
+      text_out+=text
+      break
+    else:
+      text_out+=text.left(m.get_start())
+      var choice=m.get_string().trim_prefix("{").trim_suffix("}").split("/")
+      text_out+=choice[seeded_rnd.randi_range(0,choice.size()-1)]
+      text.erase(0,m.get_end())
+  return text_out
+
+
 func check_min_option(key,min_value) -> bool:
   var value=Clientstore.get_state(key)
   return value>=min_value
@@ -137,17 +157,18 @@ func get_stuff(rewards):
 
 
 func populate_event(event):
-  var diff=int(current_system.sysConq)
-  $GUI/EventPopup._set_event_title(event.title)
-  $GUI/EventPopup._display_flavor_text(event.description)
+  var conq_supply=int(current_system.sysConq)
+  var conq_credit=int(current_system.sysConq*1.7)
+  $GUI/EventPopup._set_event_title(randomize_flavor_text(event.title))
+  $GUI/EventPopup._display_flavor_text(randomize_flavor_text(event.description))
   $GUI/EventPopup._set_flavor_picture(event.graphicID)
 
   active_options=[]
   match str(event.type):
     "0":  # conquor
       active_options=[
-          {"text":"Use "+str(diff)+" supplies to take the system","disabled":!check_min_option("supplies",diff),"cost":{"supplies":diff},"get":{"system":current_system.name}},
-          {"text":"Pay "+str(diff)+" credits to buy the system","disabled":!check_min_option("credits",diff),"cost":{"credits":diff},"get":{"system":current_system.name}},
+          {"text":"Use "+str(conq_supply)+" supplies to take the system","disabled":!check_min_option("supplies",conq_supply),"cost":{"supplies":conq_supply},"get":{"system":current_system.name}},
+          {"text":"Pay "+str(conq_credit)+" credits to buy the system","disabled":!check_min_option("credits",conq_credit),"cost":{"credits":conq_credit},"get":{"system":current_system.name}},
           {"text":"Continue on","disabled":false}]
     "1":  # Empty system
       active_options=[{"text":"Continue on","disabled":false}]

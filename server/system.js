@@ -12,6 +12,7 @@ class System {
       baseData.sheets.find(sheet => sheet.name === 'stars').lines.map(star => star.weight)
     );
     this.owner = null;
+	this.playername = null;
     this.position = {
       x: chanceInstance.floating({
         min: 0,
@@ -45,6 +46,12 @@ class System {
 
   setOwner(userID) {
     this.owner = userID;
+  }
+  
+  rename(newName, playerID)
+  {
+	  if (this.owner == playerID)
+		this.playername = newName;
   }
 }
 
