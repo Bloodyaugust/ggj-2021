@@ -19,7 +19,7 @@ var values: Dictionary = {
  }
 
 # This is a key/value entry for each planet we know about
-# key = string index ('0' for _system[0])
+# key = system name (canonical name, not player name)
 # value = "visited" or "owned"
 var system_knowledge: Dictionary = {
 
@@ -39,22 +39,20 @@ func get_state(val_key: String):
   return values[val_key]
 
 
-func get_visit_status(sys_idx: int)-> String:
-  var key=str(sys_idx)
-  if system_knowledge.has(key):
-    return system_knowledge[key]
+func get_visit_status(sys_name: String)-> String:
+  if system_knowledge.has(sys_name):
+    return system_knowledge[sys_name]
   else:
     return("unknown")
 
 
-func set_visit_status(sys_idx: int, state: String)-> void:
+func set_visit_status(sys_name: String, state: String)-> void:
   if (state!="owned")&&(state!="visited"):
     return
-  var key=str(sys_idx)
-  if system_knowledge.has(key):
-    if (system_knowledge[key]=="owned")&&(state=="visited"):
+  if system_knowledge.has(sys_name):
+    if (system_knowledge[sys_name]=="owned")&&(state=="visited"):
       return
-  system_knowledge[key]=state
+  system_knowledge[sys_name]=state
   if (state=="owned"):
     var owned=values["owned_systems"]+1
     set_state("owned_systems",owned)

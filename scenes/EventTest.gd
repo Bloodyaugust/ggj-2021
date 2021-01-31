@@ -80,12 +80,12 @@ func update_current_system():
     planet["conq"]=planet["difficulty"]+(planet["pop"])+(planet["hos"])
     sysConq+=planet["conq"]
   current_system["sysConq"]=sysConq
-  current_system["status"]=Clientstore.get_visit_status(current_system_idx)
+  current_system["status"]=Clientstore.get_visit_status(current_system.name)
 
 
 func display_system(system):
-  var text="Star: "+system.star.sequence+" ["+str(system.position.x)+", "+str(system.position.y)+"]\n"
-  text+="System status: "+current_system["status"]+"\n"
+  var text="System: "+system.name+"  ("+current_system["status"]+")\n"
+  text+="Star: "+system.star.sequence+" ["+str(system.position.x)+", "+str(system.position.y)+"]\n"
   var idx=1
   for planet in system.planets:
     text+="  Planet "+str(idx)+": "+planet.type+" credits: "+str(planet.credits)+" fuel: "+str(planet.fuel)+" supplies: "+str(planet.supplies)+" "+str(planet.pop)+" "+str(planet.hos)+"\n"
@@ -98,7 +98,7 @@ func travel_to_system(value):
   current_system_idx=value
   update_current_system()
   display_system(current_system)
-  Clientstore.set_visit_status(current_system_idx,"visited")
+  Clientstore.set_visit_status(current_system.name,"visited")
 
   if (current_system.status!="owned"):
     var effort = current_system.sysConq
@@ -127,9 +127,9 @@ func get_stuff(rewards):
   for key in rewards.keys():
     match key:
       "system":
-        var system_idx=rewards[key]
+        var system_name=rewards[key]
         current_system["status"]="owned"
-        Clientstore.set_visit_status(system_idx,"owned")
+        Clientstore.set_visit_status(system_name,"owned")
       _:
         var goods=rewards[key]
         var update=Clientstore.get_state(key)+goods
@@ -146,8 +146,8 @@ func populate_event(event):
   match str(event.type):
     "0":  # conquor
       active_options=[
-          {"text":"Use "+str(diff)+" supplies to take the system","disabled":!check_min_option("supplies",diff),"cost":{"supplies":diff},"get":{"system":current_system_idx}},
-          {"text":"Pay "+str(diff)+" credits to buy the system","disabled":!check_min_option("credits",diff),"cost":{"credits":diff},"get":{"system":current_system_idx}},
+          {"text":"Use "+str(diff)+" supplies to take the system","disabled":!check_min_option("supplies",diff),"cost":{"supplies":diff},"get":{"system":current_system.name}},
+          {"text":"Pay "+str(diff)+" credits to buy the system","disabled":!check_min_option("credits",diff),"cost":{"credits":diff},"get":{"system":current_system.name}},
           {"text":"Continue on","disabled":false}]
     "1":  # Empty system
       active_options=[{"text":"Continue on","disabled":false}]
