@@ -14,7 +14,7 @@ module.exports = {
       path: '/var/www/ggj-2021',
       key: '~/.ssh/lobby_server_deploy2_rsa.pem',
       'pre-deploy-local': '',
-      'post-deploy': 'yarn install && mv .env.prod .env && pm2 startOrReload ecosystem.config.js --env production',
+      'post-deploy': 'cd server/ && yarn install && mv .env.prod .env && pm2 startOrReload ecosystem.config.js --env production',
       'pre-setup': ''
     }
   }
