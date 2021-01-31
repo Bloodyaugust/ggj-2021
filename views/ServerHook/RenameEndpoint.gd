@@ -12,12 +12,8 @@ func _on_request_completed(response, code, headers, body):
 func _attempt_rename(sys_id: String, sys_name: String):
   var query = to_json({"userID": str(Store.state["uid"]), "systemID": sys_id, "systemName": sys_name})
   
-  if ClientConstants.USE_LOCAL:
-    _rename.request(ClientConstants.ENDPOINT_LOCAL + "rename", ClientConstants.HEADER, \
-      true, HTTPClient.METHOD_POST, query)
-  else:
-    _rename.request(ClientConstants.ENDPOINT_REMOTE + "rename", ClientConstants.HEADER, \
-      true, HTTPClient.METHOD_POST, query)
+  _rename.request(ClientConstants.ENDPOINT_ACTUAL + "rename", ClientConstants.HEADER, \
+    true, HTTPClient.METHOD_POST, query)
 
 func _ready():
   _rename.connect("request_completed", self, "_on_request_completed")
