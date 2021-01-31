@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://views/fps.gd" type="Script" id=1]
 [ext_resource path="res://doodads/RTS-Camera2D.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scenes/UI/EventPopup.tscn" type="PackedScene" id=10]
 [ext_resource path="res://resources/themes/anneke.tres" type="Theme" id=11]
 [ext_resource path="res://views/resources.gd" type="Script" id=12]
+[ext_resource path="res://scenes/Hookpoint.tscn" type="PackedScene" id=13]
 
 [node name="Node2D" type="Node2D"]
 
@@ -102,9 +103,8 @@ __meta__ = {
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="UIRoot/Resources"]
-margin_left = 38.0
 margin_top = 20.0
-margin_right = 364.0
+margin_right = 326.0
 margin_bottom = 54.0
 size_flags_horizontal = 4
 
@@ -148,3 +148,5 @@ script = ExtResource( 9 )
 [node name="Systems" type="Node2D" parent="."]
 
 [node name="Fleets" type="Node2D" parent="."]
+
+[node name="ServerHook" parent="." instance=ExtResource( 13 )]
