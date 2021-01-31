@@ -53,9 +53,9 @@ func update_current_system():
 
   var sysConq=0.0
   for planet in current_system.planets:
-    planet["pop"]=planet["popBase"]+seeded_rnd.randf()*planet["popMod"]
-    planet["hos"]=planet["hosBase"]+seeded_rnd.randf()*planet["hosMod"]
-    planet["conq"]=planet["difficulty"]*(planet["pop"]/planet["popBase"])*(planet["hos"]/planet["hosBase"])
+    planet["pop"]=seeded_rnd.randf_range(planet["popMin"],planet["popMax"])
+    planet["hos"]=seeded_rnd.randf_range(planet["hosMin"],planet["hosMax"])
+    planet["conq"]=planet["difficulty"]+(planet["pop"])+(planet["hos"])
     sysConq+=planet["conq"]
   current_system["sysConq"]=sysConq
 
@@ -89,12 +89,19 @@ func travel_to_system(value):
 func populate_event(event):
   $GUI/EventPopup._set_event_title(event.title)
   $GUI/EventPopup._display_flavor_text(event.description)
+  $GUI/EventPopup._set_flavor_picture(event.graphicID)
 
   match str(event.type):
     "0":  # conquor
-      $GUI/EventPopup._display_button_text(["Use supplies to take system","Use credits to take system","Move on"])
+      $GUI/EventPopup._display_button_text([
+          {"text":"Use supplies to take system","disabled":false},
+          {"text":"Use credits to take system","disabled":false},
+          {"text":"Continue on","disabled":false}])
+    "1":  # Empty system
+      $GUI/EventPopup._display_button_text([
+          {"text":"Continue on","disabled":false}])
     _:  #
-      $GUI/EventPopup._display_button_text(["Move on"])
+      $GUI/EventPopup._display_button_text([{"text":"Nothing to do","disabled":false}])
 
   $GUI/EventPopup.popup_centered()
 

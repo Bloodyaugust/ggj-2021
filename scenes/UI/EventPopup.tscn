@@ -1,9 +1,10 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://sprites/events/conquer.png" type="Texture" id=1]
 [ext_resource path="res://scripts/behaviors/EventCard.gd" type="Script" id=2]
 
 [node name="EventPopup" type="WindowDialog"]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1560.0
@@ -46,16 +47,18 @@ __meta__ = {
 anchor_right = 1.0
 margin_left = 10.0
 margin_top = 45.0
-margin_right = -10.0
-margin_bottom = 161.0
+margin_right = -9.99997
+margin_bottom = 215.0
 texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Panel" type="Panel" parent="EventPlacard"]
 margin_left = 6.0
-margin_top = 161.0
+margin_top = 219.0
 margin_right = 353.0
 margin_bottom = 347.0
 __meta__ = {
