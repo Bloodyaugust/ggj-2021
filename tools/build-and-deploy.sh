@@ -20,24 +20,24 @@ mkdir build/win/
 
 echo "EXPORTING FOR LINUX"
 echo "-----------------------------"
-godot --export "Linux/X11" build/linux/ggj-2021.x86_64 -v
+godot --export "Linux/X11" build/linux/sm4rt.x86_64 -v
 echo "EXPORTING FOR OSX"
 echo "-----------------------------"
-godot --export "Mac OSX" build/osx/ggj-2021.dmg -v
+godot --export "Mac OSX" build/osx/sm4rt.dmg -v
 echo "EXPORTING FOR WINDOZE"
 echo "-----------------------------"
-godot --export-debug "Windows Desktop" build/win/ggj-2021.exe -v
+godot --export-debug "Windows Desktop" build/win/sm4rt.exe -v
 echo "-----------------------------"
 
 echo "CHANGING FILETYPE AND CHMOD EXECUTABLE FOR OSX"
 echo "-----------------------------"
 cd build/osx/
-mv ggj-2021.dmg ggj-2021-osx-alpha.zip
-unzip ggj-2021-osx-alpha.zip
-rm ggj-2021-osx-alpha.zip
-chmod +x ggj-2021.app/Contents/MacOS/ggj-2021
-zip -r ggj-2021-osx-alpha.zip ggj-2021.app
-rm -rf ggj-2021.app
+mv sm4rt.dmg sm4rt-osx-alpha.zip
+unzip sm4rt-osx-alpha.zip
+rm sm4rt-osx-alpha.zip
+chmod +x sm4rt.app/Contents/MacOS/sm4rt
+zip -r sm4rt-osx-alpha.zip sm4rt.app
+rm -rf sm4rt.app
 cd ../../
 
 ls -al
@@ -49,15 +49,15 @@ ls -al build/win/
 echo "ZIPPING FOR WINDOZE"
 echo "-----------------------------"
 cd build/win/
-zip -r ggj-2021-win-alpha.zip ggj-2021.exe ggj-2021.pck
-rm -r ggj-2021.exe ggj-2021.pck
+zip -r sm4rt-win-alpha.zip sm4rt.exe sm4rt.pck
+rm -r sm4rt.exe sm4rt.pck
 cd ../../
 
 echo "ZIPPING FOR LINUX"
 echo "-----------------------------"
 cd build/linux/
-zip -r ggj-2021-linux-alpha.zip ggj-2021.x86_64 ggj-2021.pck
-rm -r ggj-2021.x86_64 ggj-2021.pck
+zip -r sm4rt-linux-alpha.zip sm4rt.x86_64 sm4rt.pck
+rm -r sm4rt.x86_64 sm4rt.pck
 cd ../../
 
 echo "Logging in to Butler"
@@ -66,9 +66,9 @@ butler login
 
 echo "Pushing builds with Butler"
 echo "-----------------------------"
-butler push build/linux/ synsugarstudio/ggj-2021:linux-alpha
-butler push build/osx/ synsugarstudio/ggj-2021:osx-alpha
-butler push build/win/ synsugarstudio/ggj-2021:win-alpha
+butler push build/linux/ synsugarstudio/sm4rt:linux-alpha
+butler push build/osx/ synsugarstudio/sm4rt:osx-alpha
+butler push build/win/ synsugarstudio/sm4rt:win-alpha
 
 # echo "Deploying server"
 # echo "-----------------------------"
