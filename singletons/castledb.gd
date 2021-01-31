@@ -29,5 +29,6 @@ func _load_db() -> Object:
 
   return parsed_json.result
 
-func _init():
+func _ready():
+  print("ready called in castledb")
   db = _load_db()
