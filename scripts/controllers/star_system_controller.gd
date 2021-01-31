@@ -17,4 +17,4 @@ func _on_store_state_changed(state_key, substate):
 
 func _ready():
   Store.connect("state_changed", self, "_on_store_state_changed")
-"res://actors/star_system/StarSystem.tscn"
+

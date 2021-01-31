@@ -51,4 +51,4 @@ func _ready():
 
   Clientstore.set_state("supplies",rand_range(40,60))
   Clientstore.set_state("credits",rand_range(50,100))
-  Clientstore.set_state("fuel", 999999)
+  Clientstore.set_state("fuel", 400)
