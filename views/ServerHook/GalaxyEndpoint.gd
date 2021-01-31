@@ -13,9 +13,9 @@ func _on_request_completed(response, code, headers, body):
   #    _systems_data[_system.star.sequence] += 1
   #  else:
   #    _systems_data[_system.star.sequence] = 0
-
+  Store.set_state("systems", _systems)
   #Clientstore.set_state("systems_data", _systems_data)
-  Clientstore._load_all_systems(_systems)
+  #Clientstore._load_all_systems(_systems)
 
 func _request_galaxy():
   _get_galaxy.request(ClientConstants.ENDPOINT_LOCAL + "galaxy")
