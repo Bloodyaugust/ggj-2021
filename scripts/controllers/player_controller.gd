@@ -34,7 +34,14 @@ func _on_state_changed(state_key: String, substate):
     "starting_system":
       Clientstore.set_visit_status(substate.system.name, "owned")
 
+func _on_client_store_resources_changed(state_key, substate):
+  if Clientstore.values.owned_systems >= 5 && Store.state.game != GameConstants.GAME_OVER:
+    _server_hook._win_the_game();
+    Store.set_state("game", GameConstants.GAME_OVER)
+    Store.set_state("client_view", ClientConstants.CLIENT_VIEW_MAIN_MENU)
+
 func _ready():
+  Clientstore.connect("resources_changed", self, "_on_client_store_resources_changed")
   Store.connect("state_changed", self, "_on_state_changed")
 
   Clientstore.set_state("supplies",rand_range(40,60))
