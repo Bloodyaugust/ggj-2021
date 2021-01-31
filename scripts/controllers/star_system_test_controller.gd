@@ -10,7 +10,7 @@ func _on_store_state_changed(state_key, substate):
       GDUtil.queue_free_children(_systems_container)
 
       for _system in substate:
-        var _new_system: Sprite = star_system_actor.instance()
+        var _new_system: Node2D = star_system_actor.instance()
 
         _systems_container.add_child(_new_system)
         _new_system.initialize(_system)
