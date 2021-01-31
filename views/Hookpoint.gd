@@ -26,3 +26,4 @@ func _win_the_game():
 
 func _clear_userID():
   Store.set_state("uid", "")
+  _stop_Timer()
