@@ -54,4 +54,5 @@ enabled=PoolStringArray( "godot-quick-find" )
 
 [rendering]
 
+environment/default_clear_color=Color( 0.145098, 0.176471, 0.180392, 1 )
 environment/default_environment="res://default_env.tres"

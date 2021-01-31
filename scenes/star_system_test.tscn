@@ -1,13 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://doodads/RTS-Camera2D.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/controllers/star_system_test_controller.gd" type="Script" id=2]
 [ext_resource path="res://actors/star_system/StarSystem.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/fleet/Fleet.tscn" type="PackedScene" id=4]
-[ext_resource path="res://sprites/background/Visible star.png" type="Texture" id=5]
-[ext_resource path="res://sprites/background/Visible star3.png" type="Texture" id=7]
-[ext_resource path="res://sprites/background/tiny stars.png" type="Texture" id=8]
-[ext_resource path="res://sprites/background/Small Stars.png" type="Texture" id=9]
+[ext_resource path="res://doodads/BackgroundParallax.tscn" type="PackedScene" id=5]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
@@ -27,38 +24,4 @@ zoom_min = 5.0
 
 [node name="Fleet" parent="." instance=ExtResource( 4 )]
 
-[node name="Node2D" type="Node2D" parent="."]
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="Node2D"]
-
-[node name="ParallaxLayer5" type="ParallaxLayer" parent="Node2D/ParallaxBackground"]
-scale = Vector2( 15, 15 )
-motion_scale = Vector2( 0.07, 0.07 )
-
-[node name="Sprite" type="Sprite" parent="Node2D/ParallaxBackground/ParallaxLayer5"]
-texture = ExtResource( 9 )
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="Node2D/ParallaxBackground"]
-scale = Vector2( 15, 15 )
-motion_scale = Vector2( 0.05, 0.05 )
-
-[node name="Sprite" type="Sprite" parent="Node2D/ParallaxBackground/ParallaxLayer2"]
-texture = ExtResource( 8 )
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="Node2D/ParallaxBackground"]
-position = Vector2( -3620.64, -2417.46 )
-scale = Vector2( 6, 6 )
-motion_scale = Vector2( 0.02, 0.02 )
-
-[node name="Sprite" type="Sprite" parent="Node2D/ParallaxBackground/ParallaxLayer3"]
-position = Vector2( -10.0794, -10.0793 )
-texture = ExtResource( 7 )
-
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="Node2D/ParallaxBackground"]
-position = Vector2( 1200, 900 )
-scale = Vector2( 5, 5 )
-motion_scale = Vector2( 0.02, 0.02 )
-
-[node name="Sprite" type="Sprite" parent="Node2D/ParallaxBackground/ParallaxLayer4"]
-position = Vector2( 479.778, 104.825 )
-texture = ExtResource( 5 )
+[node name="BackgroundParallax" parent="." instance=ExtResource( 5 )]

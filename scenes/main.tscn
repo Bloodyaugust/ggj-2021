@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://views/fps.gd" type="Script" id=1]
 [ext_resource path="res://doodads/RTS-Camera2D.tscn" type="PackedScene" id=2]
@@ -13,8 +13,11 @@
 [ext_resource path="res://resources/themes/anneke.tres" type="Theme" id=11]
 [ext_resource path="res://views/resources.gd" type="Script" id=12]
 [ext_resource path="res://scenes/Hookpoint.tscn" type="PackedScene" id=13]
+[ext_resource path="res://doodads/BackgroundParallax.tscn" type="PackedScene" id=14]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="BackgroundParallax" parent="." instance=ExtResource( 14 )]
 
 [node name="RTS-Camera2D" parent="." instance=ExtResource( 2 )]
 
