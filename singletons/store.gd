@@ -6,6 +6,7 @@ var state: Dictionary = {
   "client_view": "",
   "game": "",
   "uid": "", # Unique user ID, generated locally once and stored
+  "selection": null, # Selected Fleet actor
   "systems": [], # Systems in the galaxy, fetched from server
   "target": null # StarSystem actor targeted for action
  }

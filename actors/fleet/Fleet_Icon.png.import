@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/White_dwarf.png-bade7640b24803d0acf37d201153c9ac.stex"
+path="res://.import/Fleet_Icon.png-e5dddfe8e8404a8fe7cd347bdb16e697.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/star_system/White_dwarf.png"
-dest_files=[ "res://.import/White_dwarf.png-bade7640b24803d0acf37d201153c9ac.stex" ]
+source_file="res://actors/fleet/Fleet_Icon.png"
+dest_files=[ "res://.import/Fleet_Icon.png-e5dddfe8e8404a8fe7cd347bdb16e697.stex" ]
 
 [params]
 
