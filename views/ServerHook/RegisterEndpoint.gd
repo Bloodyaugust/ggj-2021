@@ -12,12 +12,9 @@ var rng = RandomNumberGenerator.new()
 
 func _send_endpoint_completed(result, response_code, headers, body):
   if response_code == 200:
-    var file = File.new()
-    file.open("res://player.info", File.WRITE)
-    var uid = Store.state["uid"]
-    file.store_var(uid)
-    file.close()
     emit_signal("connection_established")
+    var _json = JSON.parse(body.get_string_from_utf8()).result
+    Store.set_state("starting_system", _json)
   elif response_code == 500:
     # Mostly an ID error, try again
     var id = rng.randi()
@@ -38,18 +35,12 @@ func _send_endpoint_completed(result, response_code, headers, body):
 # Prepare our UID and send it off to the server for registering
 # ONLY RUN IF WE DON'T HAVE AN IDEA ALREADY
 func _attempt_connection():
-  var file = File.new()
-  if file.file_exists("res://player.info") == false:
-    rng.randomize()
-    var id = rng.randi()
-    var query = to_json({ "userID": str(id) })
-    Store.set_state("uid", str(id))
-    _send_endpoint.request(ClientConstants.ENDPOINT_LOCAL + "register", ClientConstants.HEADER, true, HTTPClient.METHOD_GET, query)
-  else:
-    file.open("res://player.info", File.READ)
-    var uid = file.get_var()
-    file.close()
-    Store.set_state("uid", uid)
+  rng.randomize()
+  var id = rng.randi()
+  var query = to_json({ "userID": str(id) })
+  Store.set_state("uid", str(id))
+  _send_endpoint.request(ClientConstants.ENDPOINT_LOCAL + "register", ClientConstants.HEADER,\
+     true, HTTPClient.METHOD_GET, query)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
