@@ -6,8 +6,8 @@ func _on_request_completed(response, code, headers, body):
   if code == 500:
     print("error")
     return
-  var _json = JSON.parse(body.get_string_from_utf8())
-  print(_json)
+  var _json = JSON.parse(body.get_string_from_utf8()).result
+  #Clientstore.set_system(_json.system.name, _json)
 
 func _attempt_rename(sys_id: String, sys_name: String):
   var query = to_json({"userID": str(Store.state["uid"]), "systemID": sys_id, "systemName": sys_name})
