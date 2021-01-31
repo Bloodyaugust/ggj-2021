@@ -1,5 +1,6 @@
 extends Node
 
+signal resource_tick_updated
 onready var _event_popup: WindowDialog = $"../UIRoot/EventPopup"
 
 # event selection variables
@@ -64,13 +65,22 @@ func update_current_system(system):
 
   current_system["planet_types"]={}
   var sysConq=0.0
+  var sysFuel=0.0
+  var sysSupplies=0.0
+  var sysCredits=0.0
   for planet in current_system.planets:
     planet["pop"]=seeded_rnd.randf_range(planet["popMin"],planet["popMax"])
     planet["hos"]=seeded_rnd.randf_range(planet["hosMin"],planet["hosMax"])
     planet["conq"]=planet["difficulty"]+(planet["pop"])+(planet["hos"])
     current_system.planet_types[planet.type]="true"
     sysConq+=planet["conq"]
+    sysFuel+=planet["fuel"]
+    sysSupplies+=planet["supplies"]
+    sysCredits+=planet["credits"]
   current_system["sysConq"]=sysConq
+  current_system["sysFuel"]=sysFuel
+  current_system["sysSupplies"]=sysSupplies
+  current_system["sysCredits"]=sysCredits
   current_system["status"]=Clientstore.get_visit_status(current_system.name)
 
 
@@ -143,6 +153,9 @@ func arrive_at_system(system):
     event.description=text+" "+event.description+"\n";
     final_flavor_text(event)
     populate_event(event)
+    emit_signal("resource_tick_updated", 0)
+  else:
+    emit_signal("resource_tick_updated", current_system.sysFuel)
 
 
 func randomize_flavor_text(text)->String:
@@ -243,8 +256,8 @@ func populate_event(event):
   match str(event.options):
     "1":  # take-over system
       active_options=[
-          {"text":"Use "+str(conq_supply)+" supplies to take the system","disabled":!check_min_option("supplies",conq_supply),"cost":{"supplies":conq_supply},"get":{"system":current_system.name}},
-          {"text":"Pay "+str(conq_credit)+" credits to buy the system","disabled":!check_min_option("credits",conq_credit),"cost":{"credits":conq_credit},"get":{"system":current_system.name}},
+          {"text":"Use "+str(conq_supply)+" supplies to take the system","disabled":!check_min_option("supplies",conq_supply),"cost":{"supplies":conq_supply},"get":{"system":current_system.name, "fuel":current_system.sysFuel, "credits":current_system.sysCredits}},
+          {"text":"Pay "+str(conq_credit)+" credits to buy the system","disabled":!check_min_option("credits",conq_credit),"cost":{"credits":conq_credit},"get":{"system":current_system.name, "fuel":current_system.sysFuel, "supplies":current_system.sysSupplies}},
           {"text":"Continue on","disabled":false}]
     "0":  # Empty system / no options
       active_options=[{"text":"Continue on","disabled":false}]
