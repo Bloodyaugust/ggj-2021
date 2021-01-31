@@ -25,6 +25,28 @@ app.get('/galaxy', function (req, res) {
   })
 });
 
+app.post('/explore', (req, res) => {
+  const { userID, systemName } = req.body;
+  const exploringSystem = systems.find(system => system.name === systemName);
+
+  exploringSystem.explore(userID);
+
+  res.json({
+    system: exploringSystem
+  });
+});
+
+app.post('/owner', (req, res) => {
+  const { userID, systemName } = req.body;
+  const owningSystem = systems.find(system => system.name === systemName);
+
+  owningSystem.setOwner(userID);
+
+  res.json({
+    system: owningSystem
+  });
+});
+
 app.post('/register', (req, res) => {
   const { userID } = req.body;
 
@@ -54,11 +76,6 @@ app.post('/register', (req, res) => {
   } else {
     res.status(500).end()
   }
-});
-
-app.get('/event', function(req, res) {
-	const { responseID } = req.body;
-	console.log("recieved your response, commander");
 });
 
 generateGalaxy();

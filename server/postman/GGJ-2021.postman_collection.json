@@ -24,6 +24,8 @@
 							"    pm.expect(jsonData.systems[0].position.x).to.be.an('number');\r",
 							"    pm.expect(jsonData.systems[0].position.y).to.be.an('number');\r",
 							"    pm.expect(jsonData.systems[0].planets).to.be.an('array');\r",
+							"\r",
+							"    pm.globals.set(\"firstSystem\", jsonData.systems[0].name);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -83,6 +85,94 @@
 					]
 				},
 				"description": "Register a new player"
+			},
+			"response": []
+		},
+		{
+			"name": "Explore",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6adeb029-b3a8-48b9-92e2-e970f8a65dfc",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Adds userID to explorers\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.system.explorers).to.contain('abcd');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userID\": \"abcd\",\r\n    \"systemName\": \"{{firstSystem}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_ROOT}}explore",
+					"host": [
+						"{{API_ROOT}}explore"
+					]
+				},
+				"description": "Explore this system"
+			},
+			"response": []
+		},
+		{
+			"name": "Owner",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a19fad7c-0743-4ac8-b3ca-31373ec9a748",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"userID becomes the owner\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(jsonData.system.owner).to.eq('abcd');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userID\": \"abcd\",\r\n    \"systemName\": \"{{firstSystem}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_ROOT}}owner",
+					"host": [
+						"{{API_ROOT}}owner"
+					]
+				},
+				"description": "Set the owner of this system"
 			},
 			"response": []
 		}
