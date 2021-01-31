@@ -22,4 +22,4 @@ func _win_the_game():
   $SetWonEndpoint._send_win()
 
 func _clear_userID():
-  pass
+  Store.set_state("uid", "")
