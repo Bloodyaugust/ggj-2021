@@ -33,3 +33,20 @@ func pick() -> Dictionary:
 
   assert(_picked_item.type != null)
   return _picked_item
+
+
+func pick_seeded(use_seed) -> Dictionary:
+  seed(use_seed)
+  var _pick_weight: float = rand_range(0, total_weight)
+  var _picked_item: Dictionary = {
+    "type": null
+  }
+  randomize()
+
+  for item in table:
+    if _pick_weight <= item.end_weight:
+      _picked_item = item
+      break
+
+  assert(_picked_item.type != null)
+  return _picked_item

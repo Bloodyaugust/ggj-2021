@@ -5,6 +5,7 @@ signal state_changed(state_key, substate)
 var state: Dictionary = {
   "client_view": "",
   "game": "",
+  "uid": ""
  }
 
 func set_state(state_key: String, new_state) -> void:

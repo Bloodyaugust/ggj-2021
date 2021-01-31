@@ -1,7 +1,9 @@
 extends Control
 
+signal choice
+
 onready var titleNode = get_node("EventPlacard/PanelContainer/EventTitle")
-onready var flavorText = get_node("EventPlacard/FlavorText")
+onready var flavorText = get_node("EventPlacard/Panel/FlavorText")
 onready var eventPic = get_node("EventPlacard/EventPicture")
 onready var optionContainer = get_node("EventPlacard/OptionContainer")
 
@@ -10,6 +12,7 @@ func _display_flavor_text(text: String):
   flavorText.text = text
 
 # Display all the options to the event.
+
 func _display_button_text(text: Array):
   for nIndx in range(optionContainer.get_child_count()):
     if nIndx >= text.size():
