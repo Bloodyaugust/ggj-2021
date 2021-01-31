@@ -21,28 +21,26 @@ font_data = ExtResource( 2 )
 size = 28
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=4]
-size = 24
-font_data = ExtResource( 3 )
-
 [sub_resource type="DynamicFont" id=3]
 size = 24
 font_data = ExtResource( 3 )
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="DynamicFont" id=4]
+size = 24
+font_data = ExtResource( 3 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+[node name="MainMenu" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -1880.0
+margin_bottom = -1040.0
 theme = ExtResource( 4 )
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="."]
 margin_right = 1920.0
 margin_bottom = 1080.0
 texture = ExtResource( 1 )
@@ -50,15 +48,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SmallStars" type="TextureRect" parent="CanvasLayer/MarginContainer/TextureRect"]
-margin_right = 40.0
-margin_bottom = 40.0
-texture = ExtResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TinyStars" type="TextureRect" parent="CanvasLayer/MarginContainer/TextureRect/SmallStars"]
+[node name="TinyStars" type="TextureRect" parent="TextureRect"]
 margin_right = 1920.0
 margin_bottom = 1080.0
 texture = ExtResource( 11 )
@@ -66,7 +56,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MediumStars" type="TextureRect" parent="CanvasLayer/MarginContainer/TextureRect"]
+[node name="SmallStars" type="TextureRect" parent="TextureRect"]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MediumStars" type="TextureRect" parent="TextureRect"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 texture = ExtResource( 12 )
@@ -74,7 +73,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/TextureRect"]
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 559.0
@@ -83,36 +82,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="VBoxContainer" parent="CanvasLayer/MarginContainer/TextureRect/MarginContainer"]
+[node name="Title" type="VBoxContainer" parent="TextureRect/MarginContainer"]
 margin_right = 552.0
 margin_bottom = 189.0
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/TextureRect/MarginContainer/Title"]
+[node name="Label" type="Label" parent="TextureRect/MarginContainer/Title"]
 margin_right = 552.0
 margin_bottom = 150.0
 custom_fonts/font = SubResource( 1 )
 text = "SM4RT"
 
-[node name="Label2" type="Label" parent="CanvasLayer/MarginContainer/TextureRect/MarginContainer/Title"]
+[node name="Label2" type="Label" parent="TextureRect/MarginContainer/Title"]
 margin_top = 154.0
 margin_right = 552.0
 margin_bottom = 189.0
 custom_fonts/font = SubResource( 2 )
 text = "Space Multiplayer 4x Roguelike Thing"
 
-[node name="Fleet_Icon" type="Sprite" parent="CanvasLayer/MarginContainer/TextureRect"]
+[node name="Fleet_Icon" type="Sprite" parent="TextureRect"]
 position = Vector2( 741.84, 424.859 )
 rotation = 1.0472
-scale = Vector2( 0.2, 0.2 )
+scale = Vector2( 0.125, 0.125 )
 texture = ExtResource( 7 )
 
-[node name="White_dwarf" type="Sprite" parent="CanvasLayer/MarginContainer/TextureRect"]
+[node name="White_dwarf" type="Sprite" parent="TextureRect"]
 position = Vector2( 333.76, 584.722 )
 scale = Vector2( 0.312226, 0.313864 )
 texture = ExtResource( 5 )
 script = ExtResource( 6 )
 
-[node name="Buttons" type="VBoxContainer" parent="CanvasLayer/MarginContainer/TextureRect"]
+[node name="Buttons" type="VBoxContainer" parent="TextureRect"]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -124,28 +123,28 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayButton" type="Button" parent="CanvasLayer/MarginContainer/TextureRect/Buttons"]
+[node name="PlayButton" type="Button" parent="TextureRect/Buttons"]
 margin_top = 424.0
 margin_right = 626.0
 margin_bottom = 481.736
 custom_fonts/font = ExtResource( 8 )
 text = "CONNECT TO SERVER"
 
-[node name="CreditsButton" type="Button" parent="CanvasLayer/MarginContainer/TextureRect/Buttons"]
+[node name="CreditsButton" type="Button" parent="TextureRect/Buttons"]
 margin_top = 511.0
 margin_right = 626.0
 margin_bottom = 568.736
 custom_fonts/font = ExtResource( 8 )
 text = "CREDITS"
 
-[node name="QuitButton" type="Button" parent="CanvasLayer/MarginContainer/TextureRect/Buttons"]
+[node name="QuitButton" type="Button" parent="TextureRect/Buttons"]
 margin_top = 598.0
 margin_right = 626.0
 margin_bottom = 655.736
 custom_fonts/font = ExtResource( 8 )
 text = "QUIT"
 
-[node name="Credits" type="VBoxContainer" parent="CanvasLayer/MarginContainer/TextureRect"]
+[node name="Credits" type="VBoxContainer" parent="TextureRect"]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -159,102 +158,97 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label7" type="Label" parent="CanvasLayer/MarginContainer/TextureRect/Credits"]
+[node name="Label7" type="Label" parent="TextureRect/Credits"]
 margin_top = 226.0
 margin_right = 626.0
 margin_bottom = 256.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "Global Game Jam 2021"
 align = 1
 
-[node name="Label8" type="Label" parent="CanvasLayer/MarginContainer/TextureRect/Credits"]
+[node name="Label8" type="Label" parent="TextureRect/Credits"]
 margin_top = 286.0
 margin_right = 626.0
 margin_bottom = 316.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "Theme: Lost & Found"
 align = 1
 
-[node name="Label9" type="Label" parent="CanvasLayer/MarginContainer/TextureRect/Credits"]
+[node name="Label9" type="Label" parent="TextureRect/Credits"]
 margin_top = 346.0
 margin_right = 626.0
 margin_bottom = 376.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "Diversifiers: RNG, Starlight"
 align = 1
 
-[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/MarginContainer/TextureRect/Credits"]
+[node name="VSplitContainer" type="VSplitContainer" parent="TextureRect/Credits"]
 margin_top = 406.0
 margin_right = 626.0
 margin_bottom = 406.0
 
-[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/TextureRect/Credits"]
+[node name="Label" type="Label" parent="TextureRect/Credits"]
 margin_top = 436.0
 margin_right = 626.0
 margin_bottom = 466.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "Michael Gardone - Project Manager, Engineer"
 align = 1
 
-[node name="Label2" type="Label" parent="CanvasLayer/MarginContainer/TextureRect/Credits"]
+[node name="Label2" type="Label" parent="TextureRect/Credits"]
 margin_top = 496.0
 margin_right = 626.0
 margin_bottom = 526.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "Evan Alley - Game Design, Data Manager"
 align = 1
 
-[node name="Label3" type="Label" parent="CanvasLayer/MarginContainer/TextureRect/Credits"]
+[node name="Label3" type="Label" parent="TextureRect/Credits"]
 margin_top = 556.0
 margin_right = 626.0
 margin_bottom = 586.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "Anneke Davis - UI Design, Art"
 align = 1
 
-[node name="Label4" type="Label" parent="CanvasLayer/MarginContainer/TextureRect/Credits"]
+[node name="Label4" type="Label" parent="TextureRect/Credits"]
 margin_top = 616.0
 margin_right = 626.0
 margin_bottom = 646.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "Joyce Shen - Art"
 align = 1
 
-[node name="Label5" type="Label" parent="CanvasLayer/MarginContainer/TextureRect/Credits"]
+[node name="Label5" type="Label" parent="TextureRect/Credits"]
 margin_top = 676.0
 margin_right = 626.0
 margin_bottom = 706.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "Greyson Richey - Engineer, Vision Holder"
 align = 1
 
-[node name="Label6" type="Label" parent="CanvasLayer/MarginContainer/TextureRect/Credits"]
+[node name="Label6" type="Label" parent="TextureRect/Credits"]
 margin_top = 736.0
 margin_right = 626.0
 margin_bottom = 766.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "Mark Schmelzenbach - Engineer, Data Manager"
 align = 1
 
-[node name="BackToMenu" type="Button" parent="CanvasLayer/MarginContainer/TextureRect/Credits"]
+[node name="BackToMenu" type="Button" parent="TextureRect/Credits"]
 margin_top = 796.0
 margin_right = 626.0
 margin_bottom = 853.736
 custom_fonts/font = ExtResource( 8 )
 text = "Back to Main Menu"
 
-[node name="BottomBar" type="VBoxContainer" parent="CanvasLayer"]
+[node name="Label" type="Label" parent="TextureRect"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -30.0
-theme = ExtResource( 4 )
+custom_fonts/font = SubResource( 4 )
+text = "A Game for the 2021 Global Game Jam."
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Label" type="Label" parent="CanvasLayer/BottomBar"]
-margin_right = 1920.0
-margin_bottom = 30.0
-custom_fonts/font = SubResource( 3 )
-text = "A Game for the 2021 Global Game Jam."
