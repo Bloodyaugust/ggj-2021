@@ -2,11 +2,11 @@
 
 [ext_resource path="res://views/Hookpoint.gd" type="Script" id=1]
 
-[node name="Node" type="Node"]
+[node name="InternetPin" type="Node"]
 script = ExtResource( 1 )
 
 [node name="GetGalaxy" type="HTTPRequest" parent="."]
 
-[node name="SendEndpoint" type="HTTPRequest" parent="."]
+[node name="Register" type="HTTPRequest" parent="."]
 
 [node name="Explore" type="HTTPRequest" parent="."]

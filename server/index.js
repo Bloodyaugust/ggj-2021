@@ -27,6 +27,9 @@ app.get('/galaxy', function (req, res) {
 
 app.post('/register', (req, res) => {
   const { userID } = req.body;
+  console.log("New connection request");
+  console.log(req.body);
+  console.log(userID);
 
   if (!players[userID]) {
     let startingSystem = false;
