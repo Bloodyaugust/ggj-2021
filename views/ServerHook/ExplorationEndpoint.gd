@@ -11,12 +11,8 @@ func _request_completed(result, response_code, headers, body):
 
 func _attempt_exploration(sys_id: String):
   var query = to_json({"userID": str(Store.state["uid"]), "systemName":sys_id})
-  if ClientConstants.USE_LOCAL:
-    _explore.request(ClientConstants.ENDPOINT_LOCAL + "explore", ClientConstants.HEADER, \
-      true, HTTPClient.METHOD_POST, query)
-  else:
-    _explore.request(ClientConstants.ENDPOINT_REMOTE + "explore", ClientConstants.HEADER, \
-      true, HTTPClient.METHOD_POST, query)
+  _explore.request(ClientConstants.ENDPOINT_ACTUAL + "explore", ClientConstants.HEADER, \
+  true, HTTPClient.METHOD_POST, query)
 
 func _ready():
   _explore.connect("request_completed", self, "_request_completed")

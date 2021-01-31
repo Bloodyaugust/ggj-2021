@@ -10,12 +10,8 @@ func _request_completed(result, response_code, headers, body):
 
 func _send_win():
   var query = to_json({"userID": str(Store.state["uid"])})
-  if ClientConstants.USE_LOCAL:
-    _wonEndpoint.request(ClientConstants.ENDPOINT_LOCAL + "won", ClientConstants.HEADER,\
-      true, HTTPClient.METHOD_POST, query)
-  else:
-    _wonEndpoint.request(ClientConstants.ENDPOINT_REMOTE + "won", ClientConstants.HEADER,\
-      true, HTTPClient.METHOD_POST, query)
+  _wonEndpoint.request(ClientConstants.ENDPOINT_ACTUAL + "won", ClientConstants.HEADER,\
+    true, HTTPClient.METHOD_POST, query)
 
 func _ready():
   _wonEndpoint.connect("request_completed", self, "_request_completed")

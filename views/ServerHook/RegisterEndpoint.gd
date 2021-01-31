@@ -21,22 +21,14 @@ func _send_endpoint_completed(result, response_code, headers, body):
     var query = to_json({ "userID": str(id) })
     Store.set_state("uid", id)
     
-    if ClientConstants.USE_LOCAL:
-      _send_endpoint.request(ClientConstants.ENDPOINT_LOCAL + "register", ClientConstants.HEADER,\
-        true, HTTPClient.METHOD_POST, query)
-    else:
-      _send_endpoint.request(ClientConstants.ENDPOINT_REMOTE + "register", ClientConstants.HEADER,\
-        true, HTTPClient.METHOD_POST, query)
+    _send_endpoint.request(ClientConstants.ENDPOINT_ACTUAL + "register", ClientConstants.HEADER,\
+      true, HTTPClient.METHOD_POST, query)
   else:
     if connectAttempts < limitedAttempts:
       var query = to_json({ "userID": str(Store.state["uid"]) })
       
-      if ClientConstants.USE_LOCAL:
-        _send_endpoint.request(ClientConstants.ENDPOINT_LOCAL + "register", ClientConstants.HEADER,\
-          true, HTTPClient.METHOD_POST, query)
-      else:
-        _send_endpoint.request(ClientConstants.ENDPOINT_REMOTE + "register", ClientConstants.HEADER,\
-          true, HTTPClient.METHOD_POST, query)
+      _send_endpoint.request(ClientConstants.ENDPOINT_ACTUAL + "register", ClientConstants.HEADER,\
+        true, HTTPClient.METHOD_POST, query)
       
       connectAttempts += 1
     else:
@@ -51,12 +43,8 @@ func _attempt_connection():
   var query = to_json({ "userID": str(id) })
   Store.set_state("uid", str(id))
   
-  if ClientConstants.USE_LOCAL:
-    _send_endpoint.request(ClientConstants.ENDPOINT_LOCAL + "register", ClientConstants.HEADER,\
-      true, HTTPClient.METHOD_POST, query)
-  else:
-    _send_endpoint.request(ClientConstants.ENDPOINT_REMOTE + "register", ClientConstants.HEADER,\
-      true, HTTPClient.METHOD_POST, query)
+  _send_endpoint.request(ClientConstants.ENDPOINT_ACTUAL + "register", ClientConstants.HEADER,\
+    true, HTTPClient.METHOD_POST, query)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
