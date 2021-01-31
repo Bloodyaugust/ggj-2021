@@ -11,6 +11,7 @@ margin_right = -1560.0
 margin_bottom = -540.0
 theme = ExtResource( 3 )
 popup_exclusive = true
+resizable = true
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
