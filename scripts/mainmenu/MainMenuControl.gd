@@ -13,6 +13,7 @@ var about: bool = false
 func _on_play_button_pressed():
   Store.set_state("client_view", ClientConstants.CLIENT_VIEW_NONE)
   Store.set_state("game", GameConstants.GAME_STARTING)
+  $"../../ServerHook"._start_Timer()
 
 func _on_credits_pressed():
   Store.set_state("client_view", ClientConstants.CLIENT_VIEW_ABOUT)
