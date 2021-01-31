@@ -50,8 +50,11 @@ class System {
   
   rename(newName, playerID)
   {
-	  if (this.owner == playerID)
+	  if (this.owner == playerID) {
 		this.playername = newName;
+		return true;
+	  }
+	  return false;
   }
 }
 
