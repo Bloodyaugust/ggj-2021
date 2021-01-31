@@ -8,11 +8,33 @@ var events={}
 var weighted_events={}
 var active_options=[]
 
+enum REQUIREMENT {
+  player_owned = 1,
+  enemy_owned = 2,
+  visited = 4,
+  undiscovered = 8,
+  no_planets = 16,
+  any_planet = 32,
+  silicate_planet = 64,
+  gas_planet = 128,
+  desert_planet = 256,
+  lava_planet = 512,
+  ocean_planet = 1024,
+  iron_planet = 2048,
+  ice_planet = 4096,
+  terrestrial_planet = 8192,
+  chthonian_planet = 16384,
+}
+
 # current system state
 var current_system_idx = -1
 var current_system = null
 
 func _ready():
+  # set-up connections
+  Store.connect("state_changed", self, "_on_galaxy_loaded")
+  $GUI/EventPopup.connect("choice_selected",self,"_on_choiceSelected")
+
   # stuff that should be in main game loop
   $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/SystemID.text="Travelling to system: "
   $GUI/EventPopup.visible=false
@@ -21,10 +43,8 @@ func _ready():
   Clientstore.set_state("credits",rand_range(50,100))
   Clientstore.set_state("fuel",rand_range(180,220))
 
+
   # --- normal init
-  # set-up connections
-  Store.connect("state_changed", self, "_on_galaxy_loaded")
-  $GUI/EventPopup.connect("choice_selected",self,"_on_choiceSelected")
   Clientstore.connect("resources_changed",self,"_resources_changed")
 
   # Create event probablity tables
@@ -47,6 +67,7 @@ func _ready():
   # update UI by faking a resource change
   _resources_changed("",0)
 
+
 func _resources_changed(_key, _value):
   $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/PlanetsLabel.text="Systems Owned: "+str(int(Clientstore.get_state("owned_systems")))
   $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/CreditLabel.text="Credits: "+str(int(Clientstore.get_state("credits")))
@@ -68,11 +89,13 @@ func update_current_system():
   var loc=str(current_system.position.x)+str(current_system.position.y)
   seeded_rnd.set_seed(loc.hash())
 
+  current_system["planet_types"]={}
   var sysConq=0.0
   for planet in current_system.planets:
     planet["pop"]=seeded_rnd.randf_range(planet["popMin"],planet["popMax"])
     planet["hos"]=seeded_rnd.randf_range(planet["hosMin"],planet["hosMax"])
     planet["conq"]=planet["difficulty"]+(planet["pop"])+(planet["hos"])
+    current_system.planet_types[planet.type]="true"
     sysConq+=planet["conq"]
   current_system["sysConq"]=sysConq
   current_system["status"]=Clientstore.get_visit_status(current_system.name)
@@ -89,6 +112,55 @@ func display_system(system):
   $GUI/Control/MarginContainer/VBoxContainer/SystemInfo.text=text
 
 
+func get_event_type(event_type):
+  var req=0
+  if (current_system.status=="owned"):
+    req=req|REQUIREMENT.player_owned
+    req=req|REQUIREMENT.visited
+  elif (current_system.status=="enemy_owned"):
+    req=req|REQUIREMENT.enemy_owned
+  elif (current_system.status=="visited"):
+    req=req|REQUIREMENT.visited
+  else:
+    req=req|REQUIREMENT.undiscovered
+
+  if (current_system.planets.empty()):
+    req=req|REQUIREMENT.no_planets
+  else:
+    req=req|REQUIREMENT.any_planet
+    if (current_system.planet_types.has("Silicate")):
+      req=req|REQUIREMENT.silicate_planet
+    if (current_system.planet_types.has("Gas")):
+      req=req|REQUIREMENT.gas_planet
+    if (current_system.planet_types.has("Desert")):
+      req=req|REQUIREMENT.desert_planet
+    if (current_system.planet_types.has("Lava")):
+      req=req|REQUIREMENT.lava_planet
+    if (current_system.planet_types.has("Ocean")):
+      req=req|REQUIREMENT.ocean_planet
+    if (current_system.planet_types.has("Iron")):
+      req=req|REQUIREMENT.iron_planet
+    if (current_system.planet_types.has("Ice")):
+      req=req|REQUIREMENT.ice_planet
+    if (current_system.planet_types.has("Terrestrial")):
+      req=req|REQUIREMENT.terrestrial_planet
+    if (current_system.planet_types.has("Chthonian")):
+      req=req|REQUIREMENT.chthonian_planet
+
+  for _i in range(1000):
+    var event=events[weighted_events[str(event_type)].pick_seeded(seeded_rnd.randi()).type]
+    var event_req=int(event.requirements)
+    if (event_req!=0):
+      if (req&event_req!=0):
+        #print("Event found: ",_i)
+        return event
+    else:
+      return event
+
+  print("No event found!")
+  return {}
+
+
 func arrive_at_system(value):
   current_system_idx=value
   update_current_system()
@@ -103,7 +175,13 @@ func arrive_at_system(value):
     else:
       event_type=1 # empty
 
-    var event=events[weighted_events[str(event_type)].pick_seeded(seeded_rnd.randi()).type]
+    var event=get_event_type(0)
+    #print("Intro: ",event)
+    var text=event.description
+    event=get_event_type(1).duplicate()
+    #print("Body: ",event)
+    event.description=text+" "+event.description+"\n";
+    final_flavor_text(event)
     populate_event(event)
 
 
@@ -111,6 +189,7 @@ func randomize_flavor_text(text)->String:
 # take text like:
 #   Your {shuttle/ship} sets down on a landing platform. {You stare apprehensively down./The floating station sways./You fall over.}"
 # Where blocks inside of {} replaced with an even choice of / divided phrases
+# Also replaces select text with other values
   var text_out=""
   while(!text.empty()):
     var m=regex.search(text)
@@ -122,7 +201,50 @@ func randomize_flavor_text(text)->String:
       var choice=m.get_string().trim_prefix("{").trim_suffix("}").split("/")
       text_out+=choice[seeded_rnd.randi_range(0,choice.size()-1)]
       text.erase(0,m.get_end())
+
+  text_out=text_out.replace("$star_color",current_system.star.colorName)
+  text_out=text_out.replace("$system_name",current_system.name)
+  text_out=text_out.replace("$chosen_planet_type","planet") #current_system.chosen_planet_type)
+
   return text_out
+
+
+func get_flavor_pop()->String:
+  return randomize_flavor_text("{lonely/sparse/bustling/crowded/a writhing mass of humanity}")
+
+
+func get_flavor_hos()->String:
+  return randomize_flavor_text("{friendly/cooperative/apprehensive/aggressive}")
+
+
+func get_flavor_rep()->String:
+  return randomize_flavor_text("{contempt/mistrust/appreciation/respect/awe}")
+
+
+func final_flavor_text(event):
+  if (current_system.status=="enemy_owned"):
+    event.options=2
+
+  if (current_system.planets.empty()):
+    return
+
+  var text=""
+  if (current_system.status=="owned"):
+    if (current_system.planet_types.has("Chthonian")):
+      text="Your people are nowhere to be found.  Curious."
+    else:
+      text="The people here are your subjects, and they look at you with clear "+get_flavor_rep()+"."
+  elif (current_system.status=="enemy_owned"):
+    if (current_system.planet_types.has("Chthonian")):
+      text="It would be trivial to establish an outpost here, but do you really want to?"
+    else:
+      text="The people here tell you that someone else with a ship has been here."
+  else:
+    if (current_system.planet_types.has("Chthonian")):
+      text="It would be trivial to establish an outpost here, but do you really want to?"
+    else:
+      text="The people seem "+get_flavor_hos()+", and their settlement is best described as "+get_flavor_pop()+"."
+  event.description+=text
 
 
 func check_min_option(key,min_value) -> bool:
@@ -157,14 +279,19 @@ func populate_event(event):
   $GUI/EventPopup._set_flavor_picture(event.graphicID)
 
   active_options=[]
-  match str(event.type):
-    "0":  # conquor
+  match str(event.options):
+    "1":  # take-over system
       active_options=[
           {"text":"Use "+str(conq_supply)+" supplies to take the system","disabled":!check_min_option("supplies",conq_supply),"cost":{"supplies":conq_supply},"get":{"system":current_system.name}},
           {"text":"Pay "+str(conq_credit)+" credits to buy the system","disabled":!check_min_option("credits",conq_credit),"cost":{"credits":conq_credit},"get":{"system":current_system.name}},
           {"text":"Continue on","disabled":false}]
-    "1":  # Empty system
+    "0":  # Empty system / no options
       active_options=[{"text":"Continue on","disabled":false}]
+    "2":  # steal system from another player
+      active_options=[
+          {"text":"Use "+str(conq_supply)+" supplies to take the system","disabled":!check_min_option("supplies",conq_supply),"cost":{"supplies":conq_supply},"get":{"system":current_system.name}},
+          {"text":"Pay "+str(conq_credit)+" credits to foster distrust of their current ruler","disabled":!check_min_option("credits",conq_credit),"cost":{"credits":conq_credit},"get":{"system":current_system.name}},
+          {"text":"Continue on","disabled":false}]
     _:  #
       active_options=[{"text":"Nothing to do","disabled":false}]
 

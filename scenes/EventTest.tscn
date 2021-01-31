@@ -104,4 +104,5 @@ __meta__ = {
 }
 
 [node name="EventPopup" parent="GUI" instance=ExtResource( 2 )]
+visible = false
 [connection signal="value_changed" from="GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/SpinBox" to="." method="_on_SpinBox_value_changed"]
