@@ -60,7 +60,7 @@ app.post('/register', (req, res) => {
       const testingSystem = systems[chanceInstance.integer({ min: 0, max: systems.length - 1 })];
       startingSystemTries++;
 
-      if (!testingSystem.owner) {
+      if (!testingSystem.owner && testingSystem.planets.length) {
         startingSystem = testingSystem;
         testingSystem.setOwner(userID);
       } else if (startingSystemTries >= MAX_REGISTER_STARTING_SYSTEM_TRIES) {
