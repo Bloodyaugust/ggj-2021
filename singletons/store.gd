@@ -5,7 +5,9 @@ signal state_changed(state_key, substate)
 var state: Dictionary = {
   "client_view": "",
   "game": "",
-  "uid": ""
+  "uid": "", # Unique user ID, generated locally once and stored
+  "systems": [], # Systems in the galaxy, fetched from server
+  "target": null # StarSystem actor targeted for action
  }
 
 func set_state(state_key: String, new_state) -> void:
