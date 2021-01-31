@@ -14,6 +14,7 @@ onready var _sprite: Sprite = $"./Sprite"
 
 var _current_scale: float
 var _current_state: int
+var _distance: float
 var _selected: bool
 var _target: Node2D
 
@@ -34,7 +35,12 @@ func _on_store_state_changed(state_key, substate):
     "target":
       if _selected && _current_state == fleet_states.IDLE && substate != null && global_position.distance_to(substate.global_position) <= move_range:
         _target = substate
-        _current_state = fleet_states.MOVING
+        _distance = global_position.distance_to(_target.global_position)
+        var _req = stepify(0.005*_distance, 1)
+        if _req <= Clientstore.get_state("fuel"):
+          _current_state = fleet_states.MOVING
+        else:
+          print("whoops, not enough fuel!")
 
 func _draw():
   if _selected:
@@ -42,8 +48,8 @@ func _draw():
     draw_arc(Vector2(),  move_range, 0, PI * 2, 30, ClientConstants.COLOR_BLUE)
 
     if _current_state == fleet_states.MOVING:
-      draw_line(Vector2(), Vector2.RIGHT * global_position.distance_to(_target.global_position), ClientConstants.COLOR_LIGHT_BLUE)
-
+        draw_line(Vector2(), Vector2.RIGHT * global_position.distance_to(_target.global_position), ClientConstants.COLOR_LIGHT_BLUE)
+    
 func _process(delta):
   _current_scale = lerp(0.10, 1, _camera.zoom.x / 20)
   _sprite.scale = Vector2(_current_scale, _current_scale)
@@ -57,6 +63,7 @@ func _process(delta):
 
       look_at(_target.global_position)
       translate((_target.global_position - global_position).normalized() * speed * delta)
+      Clientstore.set_state("fuel", Clientstore.get_state("fuel") - stepify(0.005*(_distance - global_position.distance_to(_target.global_position)), 1))
 
   update()
 
