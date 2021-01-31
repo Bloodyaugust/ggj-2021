@@ -29,13 +29,17 @@ func _on_store_state_changed(state_key, substate):
       else:
         _selected = false
     "target":
-      if _selected && substate != null:
+      if _selected && _current_state == fleet_states.IDLE && substate != null && global_position.distance_to(substate.global_position) <= move_range:
         _target = substate
         _current_state = fleet_states.MOVING
 
 func _draw():
   if _selected:
-    draw_arc(Vector2(), (800.0 * _current_scale) * lerp(0.5, 1.1, (sin(OS.get_ticks_msec() / 500.0) + 1.0) / 2.0), 0, PI * 2, 30, ClientConstants.COLOR_GREEN)
+    draw_arc(Vector2(), (1000.0 * _current_scale) * lerp(0.8, 1.1, (sin(OS.get_ticks_msec() / 500.0) + 1.0) / 2.0), 0, PI * 2, 30, ClientConstants.COLOR_GREEN)
+    draw_arc(Vector2(),  move_range, 0, PI * 2, 30, ClientConstants.COLOR_BLUE)
+
+    if _current_state == fleet_states.MOVING:
+      draw_line(Vector2(), Vector2.RIGHT * global_position.distance_to(_target.global_position), ClientConstants.COLOR_LIGHT_BLUE)
 
 func _process(delta):
   _current_scale = lerp(0.10, 1, _camera.zoom.x / 20)
@@ -46,7 +50,6 @@ func _process(delta):
       if _target.global_position.distance_squared_to(global_position) < (speed):
         _current_state = fleet_states.IDLE
         Store.emit_signal("fleet_arrived", self, _target)
-        print("arrived")
         continue
 
       look_at(_target.global_position)
