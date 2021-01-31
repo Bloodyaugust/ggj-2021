@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/carmel4a97.RTS_Camera2D/RTS-Camera2D.gd" type="Script" id=1]
+
+[node name="RTS-Camera2D" type="Camera2D"]
+current = true
+zoom = Vector2( 10, 10 )
+script = ExtResource( 1 )
+zoom_out_limit = 20
+zoom_speed = 0.5
+zoom_min = 0.5

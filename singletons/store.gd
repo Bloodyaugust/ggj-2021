@@ -1,5 +1,6 @@
 extends Node
 
+signal fleet_arrived(fleet, target)
 signal state_changed(state_key, substate)
 
 var state: Dictionary = {
