@@ -43,6 +43,7 @@ func _ready():
   Clientstore.set_state("credits",rand_range(50,100))
   Clientstore.set_state("fuel",rand_range(180,220))
 
+  $Audio.fade_in_title()
 
   # --- normal init
   Clientstore.connect("resources_changed",self,"_resources_changed")

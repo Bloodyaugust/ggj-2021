@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/EventTest.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UI/EventPopup.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/themes/anneke.tres" type="Theme" id=3]
+[ext_resource path="res://scenes/Audio.tscn" type="PackedScene" id=4]
 
 [node name="EventTest" type="Node2D"]
 script = ExtResource( 1 )
@@ -105,4 +106,6 @@ __meta__ = {
 
 [node name="EventPopup" parent="GUI" instance=ExtResource( 2 )]
 visible = false
+
+[node name="Audio" parent="." instance=ExtResource( 4 )]
 [connection signal="value_changed" from="GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/SpinBox" to="." method="_on_SpinBox_value_changed"]
