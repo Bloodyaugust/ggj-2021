@@ -1,5 +1,8 @@
 extends Node
 
+signal connection_attempts_expired()
+signal connection_established()
+
 onready var _send_endpoint: HTTPRequest = $"Register"
 
 var connectAttempts = 0
@@ -8,7 +11,6 @@ var limitedAttempts = 25
 var rng = RandomNumberGenerator.new()
 
 func _send_endpoint_completed(result, response_code, headers, body):
-  print(response_code)
   if response_code == 200:
     var file = File.new()
     file.open("res://player.info", File.WRITE)

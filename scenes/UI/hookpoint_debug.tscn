@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://resources/fonts/kenney_pixel.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/tmp/hookpoint_debug.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Hookpoint.tscn" type="PackedScene" id=3]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_right = 250.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 1 )
+text = "START"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Button" parent="."]
+margin_top = 96.0
+margin_right = 250.0
+margin_bottom = 177.0
+custom_fonts/font = ExtResource( 1 )
+text = "OWN SYSTEM"
+
+[node name="Button3" type="Button" parent="."]
+margin_top = 196.0
+margin_right = 250.0
+margin_bottom = 277.0
+rect_pivot_offset = Vector2( 0, -196 )
+custom_fonts/font = ExtResource( 1 )
+text = "EXPLORE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button4" type="Button" parent="."]
+margin_top = 294.0
+margin_right = 250.0
+margin_bottom = 375.0
+rect_pivot_offset = Vector2( 0, -196 )
+custom_fonts/font = ExtResource( 1 )
+text = "GIB GALAXY"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ServerHook" parent="." instance=ExtResource( 3 )]
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_Button3_pressed"]
+[connection signal="pressed" from="Button4" to="." method="_on_Button4_pressed"]

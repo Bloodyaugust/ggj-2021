@@ -15,6 +15,10 @@ func _on_request_completed(response, code, headers, body):
       _systems_data[_system.star.sequence] = 0
 
   Store.set_state("systems_data", _systems_data)
+  Store.set_state("systems", _systems)
+
+func _request_galaxy():
+  _get_galaxy.request(ClientConstants.ENDPOINT_LOCAL + "galaxy")
 
 func _ready():
   _get_galaxy.connect("request_completed", self, "_on_request_completed")
