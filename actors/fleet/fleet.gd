@@ -17,6 +17,9 @@ var _current_state: int
 var _selected: bool
 var _target: Node2D
 
+func is_in_range(star_system: Node2D) -> bool:
+  return star_system.global_position.distance_to(global_position) <= move_range
+
 func _on_area2d_input_event(node, event, shape_index):
   if (event is InputEventMouseButton && event.pressed && (event.button_index == BUTTON_LEFT || event.button_index == BUTTON_RIGHT)) || (event is InputEventScreenTouch && event.pressed):
     Store.set_state("selection", self)
