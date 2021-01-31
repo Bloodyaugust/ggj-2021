@@ -8,8 +8,13 @@ func _request_completed(result, response_code, headers, body):
 
 func _attempt_control(sys_name: String):
   var query = to_json({ "userID": Store.state["uid"], "systemName": sys_name })
-  _register.request(ClientConstants.ENDPOINT_LOCAL + "owner", ClientConstants.HEADER,\
-      true, HTTPClient.METHOD_POST, query)
+  
+  if ClientConstants.USE_LOCAL:
+    _register.request(ClientConstants.ENDPOINT_LOCAL + "owner", ClientConstants.HEADER,\
+        true, HTTPClient.METHOD_POST, query)
+  else:
+    _register.request(ClientConstants.ENDPOINT_REMOTE + "owner", ClientConstants.HEADER,\
+        true, HTTPClient.METHOD_POST, query)
 
 func _ready():
   _register.connect("request_completed", self, "_request_completed")

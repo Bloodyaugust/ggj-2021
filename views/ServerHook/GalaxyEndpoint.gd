@@ -18,7 +18,10 @@ func _on_request_completed(response, code, headers, body):
   #Clientstore._load_all_systems(_systems)
 
 func _request_galaxy():
-  _get_galaxy.request(ClientConstants.ENDPOINT_LOCAL + "galaxy")
+  if ClientConstants.USE_LOCAL:
+    _get_galaxy.request(ClientConstants.ENDPOINT_LOCAL + "galaxy")
+  else:
+    _get_galaxy.request(ClientConstants.ENDPOINT_REMOTE + "galaxy")
 
 func _ready():
   _get_galaxy.connect("request_completed", self, "_on_request_completed")

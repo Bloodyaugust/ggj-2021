@@ -15,8 +15,11 @@ func _attempt_connection():
 func _attempt_rename(sys_actor, sys_name: String):
   $RenameEndpoint._attempt_rename(sys_actor.system.name, sys_name)
 
-func _start_timer():
+func _start_Timer():
   $GameEndEndpoint._start_Timer()
+
+func _stop_Timer():
+  $GameEndpoint._stop_Timer()
 
 func _win_the_game():
   $SetWonEndpoint._send_win()
