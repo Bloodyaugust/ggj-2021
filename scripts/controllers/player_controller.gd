@@ -18,3 +18,7 @@ func _on_state_changed(state_key: String, substate):
 
 func _ready():
   Store.connect("state_changed", self, "_on_state_changed")
+
+  Clientstore.set_state("supplies",rand_range(40,60))
+  Clientstore.set_state("credits",rand_range(50,100))
+  Clientstore.set_state("fuel", 999999)
