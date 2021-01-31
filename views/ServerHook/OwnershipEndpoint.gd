@@ -8,7 +8,8 @@ func _request_completed(result, response_code, headers, body):
 
 func _attempt_control(sys_name: String):
   var query = to_json({ "userID": Store.state["uid"], "systemName": sys_name })
-  _register.request("http://localhost:3000/owner", ClientConstants.HEADER, true, HTTPClient.METHOD_POST, query)
+  _register.request(ClientConstants.ENDPOINT_LOCAL + "owner", ClientConstants.HEADER,\
+      true, HTTPClient.METHOD_POST, query)
 
 func _ready():
   _register.connect("request_completed", self, "_request_completed")

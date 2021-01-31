@@ -27,10 +27,12 @@ func _on_Button3_pressed():
   rng.randomize()
   var name = _systems[rng.randi_range(0, _systems.size())].name
   $ServerHook/ExplorationEndpoint._attempt_exploration(name)
-  pass
 
 func _on_Button4_pressed():
   $ServerHook/GetGalaxyEndpoint._request_galaxy()
 
 func _on_Button5_pressed():
   $ServerHook/RenameEndpoint._attempt_rename(owned, textEdit.get_text())
+
+func _on_Button6_pressed():
+  $ServerHook._win_the_game()

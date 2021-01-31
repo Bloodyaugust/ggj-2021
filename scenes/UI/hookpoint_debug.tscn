@@ -61,6 +61,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Button6" type="Button" parent="."]
+margin_top = 502.0
+margin_right = 250.0
+margin_bottom = 583.0
+rect_pivot_offset = Vector2( 0, -196 )
+custom_fonts/font = ExtResource( 1 )
+text = "WIN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="TextEdit" type="TextEdit" parent="."]
 margin_left = 278.0
 margin_top = 406.0
@@ -79,3 +90,4 @@ __meta__ = {
 [connection signal="pressed" from="Button3" to="." method="_on_Button3_pressed"]
 [connection signal="pressed" from="Button4" to="." method="_on_Button4_pressed"]
 [connection signal="pressed" from="Button5" to="." method="_on_Button5_pressed"]
+[connection signal="pressed" from="Button6" to="." method="_on_Button6_pressed"]

@@ -14,3 +14,12 @@ func _attempt_connection():
 
 func _attempt_rename(sys_actor, sys_name: String):
   $RenameEndpoint._attempt_rename(sys_actor.system.name, sys_name)
+
+func _start_timer():
+  $GameEndEndpoint._start_Timer()
+
+func _win_the_game():
+  $SetWonEndpoint._send_win()
+
+func _clear_userID():
+  Store.set_state("uid", "")
