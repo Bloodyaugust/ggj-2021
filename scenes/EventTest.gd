@@ -53,10 +53,14 @@ func _ready():
 
 
 func _resources_changed(_key, _value):
+  $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/PlanetsLabel.text="Systems Owned: "+str(int(Clientstore.get_state("owned_systems")))
   $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/CreditLabel.text="Credits: "+str(int(Clientstore.get_state("credits")))
   $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/SupplyLabel.text="Supplies: "+str(int(Clientstore.get_state("supplies")))
   $GUI/Control/MarginContainer/VBoxContainer/HBoxContainer/FuelLabel.text="Fuel: "+str(int(Clientstore.get_state("fuel")))
 
+  # not needed if we have other current_system info
+  if (_key!=""):
+    display_system(current_system)
 
 func update_current_system():
   var idx=current_system_idx
@@ -76,10 +80,12 @@ func update_current_system():
     planet["conq"]=planet["difficulty"]+(planet["pop"])+(planet["hos"])
     sysConq+=planet["conq"]
   current_system["sysConq"]=sysConq
+  current_system["status"]=Clientstore.get_visit_status(current_system_idx)
 
 
 func display_system(system):
   var text="Star: "+system.star.sequence+" ["+str(system.position.x)+", "+str(system.position.y)+"]\n"
+  text+="System status: "+current_system["status"]+"\n"
   var idx=1
   for planet in system.planets:
     text+="  Planet "+str(idx)+": "+planet.type+" credits: "+str(planet.credits)+" fuel: "+str(planet.fuel)+" supplies: "+str(planet.supplies)+" "+str(planet.pop)+" "+str(planet.hos)+"\n"
@@ -92,16 +98,18 @@ func travel_to_system(value):
   current_system_idx=value
   update_current_system()
   display_system(current_system)
+  Clientstore.set_visit_status(current_system_idx,"visited")
 
-  var effort = current_system.sysConq
-  var event_type=-1
-  if (effort>0):
-    event_type=0 # conq
-  else:
-    event_type=1 # empty
+  if (current_system.status!="owned"):
+    var effort = current_system.sysConq
+    var event_type=-1
+    if (effort>0):
+      event_type=0 # conq
+    else:
+      event_type=1 # empty
 
-  var event=events[weighted_events[str(event_type)].pick_seeded(seeded_rnd.randi()).type]
-  populate_event(event)
+    var event=events[weighted_events[str(event_type)].pick_seeded(seeded_rnd.randi()).type]
+    populate_event(event)
 
 
 func check_min_option(key,min_value) -> bool:
@@ -115,6 +123,18 @@ func pay_cost(costs):
     var update=Clientstore.get_state(key)-cost
     Clientstore.set_state(key,update)
 
+func get_stuff(rewards):
+  for key in rewards.keys():
+    match key:
+      "system":
+        var system_idx=rewards[key]
+        current_system["status"]="owned"
+        Clientstore.set_visit_status(system_idx,"owned")
+      _:
+        var goods=rewards[key]
+        var update=Clientstore.get_state(key)+goods
+        Clientstore.set_state(key,update)
+
 
 func populate_event(event):
   var diff=int(current_system.sysConq)
@@ -126,8 +146,8 @@ func populate_event(event):
   match str(event.type):
     "0":  # conquor
       active_options=[
-          {"text":"Use "+str(diff)+" supplies to take system","disabled":!check_min_option("supplies",diff),"cost":{"supplies":diff}},
-          {"text":"Pay "+str(diff)+" credits to buy system","disabled":!check_min_option("credits",diff),"cost":{"credits":diff}},
+          {"text":"Use "+str(diff)+" supplies to take the system","disabled":!check_min_option("supplies",diff),"cost":{"supplies":diff},"get":{"system":current_system_idx}},
+          {"text":"Pay "+str(diff)+" credits to buy the system","disabled":!check_min_option("credits",diff),"cost":{"credits":diff},"get":{"system":current_system_idx}},
           {"text":"Continue on","disabled":false}]
     "1":  # Empty system
       active_options=[{"text":"Continue on","disabled":false}]
@@ -167,3 +187,5 @@ func _on_choiceSelected(value):
   if (value>=0)&&(value<active_options.size()):
     if (active_options[value].has("cost")):
       pay_cost(active_options[value].cost)
+    if (active_options[value].has("get")):
+      get_stuff(active_options[value].get)
