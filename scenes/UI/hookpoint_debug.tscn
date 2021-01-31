@@ -50,8 +50,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Button5" type="Button" parent="."]
+margin_top = 399.0
+margin_right = 250.0
+margin_bottom = 480.0
+rect_pivot_offset = Vector2( 0, -196 )
+custom_fonts/font = ExtResource( 1 )
+text = "RENAME"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ServerHook" parent="." instance=ExtResource( 3 )]
+
+[node name="TextEdit" type="TextEdit" parent="."]
+margin_left = 278.0
+margin_top = 406.0
+margin_right = 685.0
+margin_bottom = 474.0
+custom_fonts/font = ExtResource( 1 )
+text = "Galaxy Bravo"
+caret_blink = true
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]
 [connection signal="pressed" from="Button3" to="." method="_on_Button3_pressed"]
 [connection signal="pressed" from="Button4" to="." method="_on_Button4_pressed"]
+[connection signal="pressed" from="Button5" to="." method="_on_Button4_pressed"]

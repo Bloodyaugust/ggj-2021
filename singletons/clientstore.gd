@@ -63,14 +63,15 @@ func set_system(sys_key: String, sys) -> void:
   emit_signal("systems_changed", sys_key, sys[sys_key])
   print("State changed: ", sys_key, " -> ", systems[sys_key])
 
-
 func get_system(val_key: String):
   return systems[val_key]
 
+func _load_all_systems(sys):
+  systems = sys
+  print("All systems have been loaded into Clientstate.")
 
 func _initialize():
   pass
-
 
 func _ready():
   call_deferred("_initialize")

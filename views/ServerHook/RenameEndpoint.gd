@@ -1,0 +1,15 @@
+extends Node
+
+onready var _rename: HTTPRequest = $"Rename"
+
+func _on_request_completed(response, code, headers, body):
+  var _json = JSON.parse(body.get_string_from_utf8())
+  print(_json)
+
+func _atteempt_rename(sys_id: String, sys_name: String):
+  var query = to_json({"userID": str(Store.state["uid"]), "systemID": sys_id, "systemName": sys_name})
+  _rename.request(ClientConstants.ENDPOINT_LOCAL + "rename", ClientConstants.HEADER, \
+    true, HTTPClient.METHOD_POST, query)
+
+func _ready():
+  _rename.connect("request_completed", self, "_on_request_completed")
