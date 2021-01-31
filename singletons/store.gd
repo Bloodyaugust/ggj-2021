@@ -8,6 +8,7 @@ var state: Dictionary = {
   "game": "",
   "uid": "", # Unique user ID, generated locally once and stored
   "selection": null, # Selected Fleet actor
+  "starting_system": null, # The players starting system, fetched on register
   "systems": [], # Systems in the galaxy, fetched from server
   "target": null # StarSystem actor targeted for action
  }
