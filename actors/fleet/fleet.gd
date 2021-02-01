@@ -49,13 +49,15 @@ func _draw():
 
     if _current_state == fleet_states.MOVING:
         draw_line(Vector2(), Vector2.RIGHT * global_position.distance_to(_target.global_position), ClientConstants.COLOR_LIGHT_BLUE)
-    
+
 func _process(delta):
   _current_scale = lerp(0.10, 1, _camera.zoom.x / 20)
   _sprite.scale = Vector2(_current_scale, _current_scale)
 
   match _current_state:
     fleet_states.MOVING:
+      if (Clientstore.get_state("fuel_tick")!=0):
+        Clientstore.set_state("fuel_tick",0)
       if _target.global_position.distance_squared_to(global_position) < (speed):
         _current_state = fleet_states.IDLE
         Store.emit_signal("fleet_arrived", self, _target)

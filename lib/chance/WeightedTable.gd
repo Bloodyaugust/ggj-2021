@@ -18,7 +18,7 @@ func initialize_table(objects: Array) -> void:
 
   for item in table:
     item.chance = item.weight / total_weight
-    print(item.chance)
+    #print(item.chance)
 
 func pick() -> Dictionary:
   var _pick_weight: float = rand_range(0, total_weight)

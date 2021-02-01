@@ -1,6 +1,5 @@
 extends Node
 
-signal resource_tick_updated
 onready var _event_popup: WindowDialog = $"../UIRoot/EventPopup"
 
 # event selection variables
@@ -153,9 +152,10 @@ func arrive_at_system(system):
     event.description=text+" "+event.description+"\n";
     final_flavor_text(event)
     populate_event(event)
-    emit_signal("resource_tick_updated", 0)
+    # handled by fleet, now!
+    #Clientstore.set_state("fuel_tick",0)
   else:
-    emit_signal("resource_tick_updated", current_system.sysFuel)
+    Clientstore.set_state("fuel_tick",current_system.sysFuel)
 
 
 func randomize_flavor_text(text)->String:
@@ -238,7 +238,7 @@ func get_stuff(rewards):
         var system_name=rewards[key]
         current_system["status"]="owned"
         Clientstore.set_visit_status(system_name,"owned")
-        emit_signal("resource_tick_updated", current_system.sysFuel)
+        Clientstore.set_state("fuel_tick",current_system.sysFuel)
       _:
         var goods=rewards[key]
         var update=Clientstore.get_state(key)+goods

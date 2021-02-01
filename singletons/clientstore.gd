@@ -13,6 +13,11 @@ var values: Dictionary = {
   # The different systems under the player's control, stored locally
   "owned_systems":0,
 
+  # fuel tick if you are sitting in an owned system
+  "fuel_tick": 0,
+  # no more fuel than this in the tank
+  "fuel_max": 2000,
+
   # reputations
   "rep_merchants": 0,
   "rep_pirates": 0,
