@@ -178,7 +178,7 @@
 				{
 					"type": "Silicate",
 					"credits": 10,
-					"fuel": 50,
+					"fuel": 10,
 					"supplies": 8,
 					"weight": 25,
 					"difficulty": 5,
@@ -190,7 +190,7 @@
 				{
 					"type": "Gas",
 					"credits": 10,
-					"fuel": 100,
+					"fuel": 60,
 					"supplies": 10,
 					"weight": 20,
 					"difficulty": 10,
@@ -214,7 +214,7 @@
 				{
 					"type": "Lava",
 					"credits": 10,
-					"fuel": 40,
+					"fuel": 15,
 					"supplies": 20,
 					"weight": 10,
 					"difficulty": 20,
@@ -226,7 +226,7 @@
 				{
 					"type": "Ocean",
 					"credits": 20,
-					"fuel": 40,
+					"fuel": 15,
 					"supplies": 17,
 					"weight": 10,
 					"difficulty": 20,
@@ -238,7 +238,7 @@
 				{
 					"type": "Iron",
 					"credits": 30,
-					"fuel": 50,
+					"fuel": 20,
 					"supplies": 20,
 					"weight": 10,
 					"difficulty": 20,
@@ -250,7 +250,7 @@
 				{
 					"type": "Ice",
 					"credits": 30,
-					"fuel": 40,
+					"fuel": 30,
 					"supplies": 20,
 					"weight": 10,
 					"difficulty": 20,
@@ -262,7 +262,7 @@
 				{
 					"type": "Terrestrial",
 					"credits": 40,
-					"fuel": 200,
+					"fuel": 70,
 					"supplies": 50,
 					"weight": 5,
 					"difficulty": 30,
