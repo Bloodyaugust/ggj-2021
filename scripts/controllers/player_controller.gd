@@ -1,5 +1,7 @@
 extends Node
 
+const SYSTEMS_TO_WIN: int = 30
+
 export var _fleet_actor: PackedScene
 
 onready var _fleets_container: Node2D = $"../Fleets"
@@ -44,7 +46,7 @@ func _on_state_changed(state_key: String, substate):
       Clientstore.set_visit_status(substate.system.name, "owned")
 
 func _on_client_store_resources_changed(state_key, substate):
-  if Clientstore.values.owned_systems >= 5 && Store.state.game != GameConstants.GAME_OVER:
+  if Clientstore.values.owned_systems >= SYSTEMS_TO_WIN && Store.state.game != GameConstants.GAME_OVER:
     _server_hook._win_the_game();
     Store.set_state("game", GameConstants.GAME_OVER)
     Store.set_state("client_view", ClientConstants.CLIENT_VIEW_MAIN_MENU)
