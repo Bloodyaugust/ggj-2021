@@ -11,15 +11,17 @@ app.use(express.json())
 
 const chanceInstance = new Chance();
 const players = {};
-const systems = [];
+var systems = [];
 
-var gameOver = false;
 var winnerID = null;
 
 function generateGalaxy() {
+  // console.log("generating new galaxy");
+  systems = [];
   for (let i = 0; i < SYSTEMS_PER_GALAXY; i++) {
     systems.push(new System(chanceInstance));
   }
+  // console.log(systems[0]);
 }
 
 app.get('/galaxy', function (req, res) {
@@ -28,22 +30,27 @@ app.get('/galaxy', function (req, res) {
   })
 });
 
-app.get('/gameover', function(req, res) {
+app.post('/gameover', function(req, res) {
+	// Get the userID
+	const { userID } = req.body;
+	players[userID] = false;
+	
 	res.json({
-		gameStatus: gameOver,
 		winner: winnerID
 	})
 });
 
 app.post('/won', function(req, res) {
 	const { userID } = req.body;
-	gameOver = true;
 	winnerID = userID;
 	
 	res.json({
-		gameStatus: gameOver,
 		winner: winnerID
 	})
+	
+	generateGalaxy();
+	
+	players[userID] = false;
 });
 
 app.post('/rename', (req, res) => {
