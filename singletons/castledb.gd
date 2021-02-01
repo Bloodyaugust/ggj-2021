@@ -30,6 +30,6 @@ func _load_db() -> Object:
   return parsed_json.result
 
 func _ready():
-  print("ready called in castledb")
+  #print("ready called in castledb")
   db = _load_db()
-  print("db loaded: " + str(db))
+  #print("db loaded: " + str(db))

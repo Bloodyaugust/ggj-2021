@@ -7,6 +7,9 @@ onready var _rts_camera2d: Camera2D = $"../RTS-Camera2D"
 onready var _systems_container: Node2D = $"../Systems"
 onready var _server_hook: Node = $"../ServerHook"
 onready var _star_system_controller: Node = $"../StarSystemController"
+onready var _event_controller: Node = $"../EventController"
+
+var fuel_tick=0
 
 func _on_state_changed(state_key: String, substate):
   match state_key:
@@ -49,7 +52,17 @@ func _on_client_store_resources_changed(state_key, substate):
 func _ready():
   Clientstore.connect("resources_changed", self, "_on_client_store_resources_changed")
   Store.connect("state_changed", self, "_on_state_changed")
+  _event_controller.connect("resource_tick_updated",self,"_on_resource_tick_updated")
 
   Clientstore.set_state("supplies",rand_range(40,60))
   Clientstore.set_state("credits",rand_range(50,100))
   Clientstore.set_state("fuel", 999999)
+
+func _on_resource_tick_updated(value):
+  fuel_tick=value
+
+func _on_ResourceTimer_timeout():
+  var fuel=Clientstore.get_state("fuel")+fuel_tick
+  Clientstore.set_state("fuel",fuel)
+
+

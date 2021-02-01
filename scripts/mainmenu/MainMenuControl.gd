@@ -8,6 +8,8 @@ onready var _back_button: Button = find_node("BackToMenu")
 onready var _buttons: VBoxContainer = find_node("Buttons")
 onready var _credits: VBoxContainer = find_node("Credits")
 
+onready var _audio_controller: Node = $"../../Audio"
+
 var about: bool = false
 
 func _on_play_button_pressed():
@@ -29,6 +31,8 @@ func _on_state_changed(state_key: String, substate):
     "client_view":
       match substate:
         ClientConstants.CLIENT_VIEW_MAIN_MENU:
+          _audio_controller.fade_out_game()
+          _audio_controller.fade_in_title()
           if about:
             _credits.rect_position.y = get_viewport().size.y
             _buttons.rect_position.y = 0
@@ -39,6 +43,8 @@ func _on_state_changed(state_key: String, substate):
           _credits.rect_position.y = 0
           about = true
         _:
+          _audio_controller.fade_out_title()
+          _audio_controller.fade_in_game()
           rect_position.y = get_viewport().size.y
     "game":
       match substate:
@@ -53,7 +59,7 @@ func _ready():
   _credits_button.connect("pressed", self, "_on_credits_pressed")
   _quit_button.connect("pressed", self, "_on_quit_pressed")
   _back_button.connect("pressed", self, "_on_back_pressed")
-  
+
   Store.connect("state_changed", self, "_on_state_changed")
 
 

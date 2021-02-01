@@ -5,7 +5,9 @@ onready var _wonEndpoint = $WonEndpoint
 
 func _request_completed(result, response_code, headers, body):
   var json = JSON.parse(body.get_string_from_utf8()).result
-  Store.set_state("gameOver", [json.winner])
+  var check=Store.state["gameOver"]
+  if (check[0]!=json.winner):
+    Store.set_state("gameOver", [json.winner])
   $"../GameEndEndpoint"._stop_Timer()
 
 func _send_win():

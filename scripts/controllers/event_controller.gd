@@ -238,6 +238,7 @@ func get_stuff(rewards):
         var system_name=rewards[key]
         current_system["status"]="owned"
         Clientstore.set_visit_status(system_name,"owned")
+        emit_signal("resource_tick_updated", current_system.sysFuel)
       _:
         var goods=rewards[key]
         var update=Clientstore.get_state(key)+goods
@@ -256,8 +257,8 @@ func populate_event(event):
   match str(event.options):
     "1":  # take-over system
       active_options=[
-          {"text":"Use "+str(conq_supply)+" supplies to take the system","disabled":!check_min_option("supplies",conq_supply),"cost":{"supplies":conq_supply},"get":{"system":current_system.name, "fuel":current_system.sysFuel, "credits":current_system.sysCredits}},
-          {"text":"Pay "+str(conq_credit)+" credits to buy the system","disabled":!check_min_option("credits",conq_credit),"cost":{"credits":conq_credit},"get":{"system":current_system.name, "fuel":current_system.sysFuel, "supplies":current_system.sysSupplies}},
+          {"text":"Use "+str(conq_supply)+" supplies to take the system, gain "+str(int(current_system.sysCredits))+" credits and "+str(int(current_system.sysFuel))+" fuel","disabled":!check_min_option("supplies",conq_supply),"cost":{"supplies":conq_supply},"get":{"system":current_system.name, "fuel":current_system.sysFuel, "credits":current_system.sysCredits}},
+          {"text":"Pay "+str(conq_credit)+" credits to buy the system, gain "+str(int(current_system.sysSupplies))+" supplies and "+str(int(current_system.sysFuel))+" fuel","disabled":!check_min_option("credits",conq_credit),"cost":{"credits":conq_credit},"get":{"system":current_system.name, "fuel":current_system.sysFuel, "supplies":current_system.sysSupplies}},
           {"text":"Continue on","disabled":false}]
     "0":  # Empty system / no options
       active_options=[{"text":"Continue on","disabled":false}]
