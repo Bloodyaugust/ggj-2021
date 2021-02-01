@@ -14,6 +14,7 @@ func _on_state_changed(state_key: String, substate):
       if substate[0]:
         # Store.set_state("game", GameConstants.GAME_OVER)
         # Store.set_state("client_view", ClientConstants.CLIENT_VIEW_MAIN_MENU)
+        print("ded")
 
     "game":
       match substate:
