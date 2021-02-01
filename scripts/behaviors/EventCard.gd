@@ -16,7 +16,8 @@ func _ready():
 
 # Update the flavor text to now have the event's thing.
 func _display_flavor_text(text: String):
-  flavorText.text = text
+  # flavorText.text = text
+  flavorText.text = "This is hardcoded text. Maybe there's a different issue?"
   print("Flavor text set: " + text)
 
 # Display all the options to the event.
