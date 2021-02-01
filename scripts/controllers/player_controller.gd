@@ -10,6 +10,11 @@ onready var _star_system_controller: Node = $"../StarSystemController"
 
 func _on_state_changed(state_key: String, substate):
   match state_key:
+    "gameOver":
+      if substate[0]:
+        Store.set_state("game", GameConstants.GAME_OVER)
+        Store.set_state("client_view", ClientConstants.CLIENT_VIEW_MAIN_MENU)
+
     "game":
       match substate:
         GameConstants.GAME_STARTING:
