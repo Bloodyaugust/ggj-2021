@@ -3,6 +3,7 @@ extends Camera2D
 export var camera_follow_speed: float
 export var camera_target_speed: float
 export var camera_zoom_speed: float
+export var debug: bool
 export var key_movement: bool
 export var follow_curve: Curve
 export var follow_delta: float
@@ -20,6 +21,9 @@ var _target: Node2D
 var _target_last_position: Vector2
 var _target_zoom: Vector2
 
+func set_target_position(position: Vector2) -> void:
+  _target.global_position = position
+
 func _exit_tree():
   _target.queue_free()
 
@@ -34,15 +38,16 @@ func _handle_keys() -> void:
     if Input.is_action_pressed("ui_down"):
       _target.translate(Vector2.DOWN * camera_target_speed * get_process_delta_time())
 
+func _on_target_draw():
+  _target.draw_arc(_target.global_position, 100, 0, PI * 2, 32, Color.green)
+
 func _reset_follow() -> void:
   _camera_last_position = global_position
-  _position_tween = 0.1
+  _position_tween = clamp(camera_follow_speed, 0, 1)
   _target_last_position = _target.global_position
   _camera_last_zoom = Vector2(zoom)
 
 func _process(delta):
-  _position_tween = clamp(_position_tween + camera_follow_speed * delta, 0, 1)
-
   _handle_keys()
 
   if _target_last_position.distance_to(_target.global_position) >= follow_delta:
@@ -50,17 +55,23 @@ func _process(delta):
 
   if mouse_drag && _dragging:
     _target.global_position += _drag_relative * delta * zoom.length()
-    _position_tween = 1
 
   var _interpolated_position_tween: float = follow_curve.interpolate(_position_tween)
 
   global_position = global_position.linear_interpolate(_target_last_position, _interpolated_position_tween)
   zoom = zoom.linear_interpolate(_target_zoom, _interpolated_position_tween)
 
+  if debug:
+    update()
+
 func _ready():
   _target = Node2D.new()
 
   _target.name = "BetterCam Target"
+  _target.global_position = global_position
+  _target.z_index = 999
+  if debug:
+    _target.connect("draw", self, "_on_target_draw")
 
   get_tree().get_root().call_deferred("add_child", _target)
 

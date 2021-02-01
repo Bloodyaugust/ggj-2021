@@ -17,3 +17,5 @@ star_system_actor = ExtResource( 3 )
 [node name="BackgroundParallax" parent="." instance=ExtResource( 5 )]
 
 [node name="BetterCam" parent="." instance=ExtResource( 1 )]
+camera_follow_speed = 0.05
+debug = true
