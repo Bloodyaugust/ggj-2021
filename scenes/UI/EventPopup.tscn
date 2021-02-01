@@ -64,7 +64,9 @@ __meta__ = {
 [node name="PanelContainer2" type="PanelContainer" parent="EventPlacard/VBoxContainer"]
 margin_top = 212.0
 margin_right = 580.0
-margin_bottom = 247.0
+margin_bottom = 362.0
+rect_min_size = Vector2( 0, 150 )
+size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -73,9 +75,9 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 573.0
-margin_bottom = 28.0
+margin_bottom = 143.0
+size_flags_vertical = 3
 text = "some stuff"
-fit_content_height = true
 
 [node name="OptionContainer" type="VBoxContainer" parent="EventPlacard"]
 anchor_right = 1.0
