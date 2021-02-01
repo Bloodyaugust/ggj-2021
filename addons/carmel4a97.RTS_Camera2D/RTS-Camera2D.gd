@@ -1,15 +1,15 @@
 # Copyright 2017 Kamil Lewan <carmel4a97@gmail.com>
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in all
 # copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -33,7 +33,7 @@ export (bool) var wheel = true
 export (int) var zoom_out_limit = 100
 
 # Camera speed in px/s.
-export (int) var camera_speed = 450 
+export (int) var camera_speed = 450
 
 # Initial zoom value taken from Editor.
 var camera_zoom = get_zoom()
@@ -65,7 +65,7 @@ func _ready():
   set_follow_smoothing(4)
 
 func _physics_process(delta):
-  
+
   # Move camera by keys defined in InputMap (ui_left/top/right/bottom).
   if key:
     if __keys[0]:
@@ -76,7 +76,7 @@ func _physics_process(delta):
       camera_movement.x += camera_speed * delta
     if __keys[3]:
       camera_movement.y += camera_speed * delta
-  
+
   # Move camera by mouse, when it's on the margin (defined by camera_margin).
   if edge:
     var rec = get_viewport().get_visible_rect()
@@ -89,17 +89,37 @@ func _physics_process(delta):
       camera_movement.y += camera_speed * delta
     if v.y <= camera_margin:
       camera_movement.y -= camera_speed * delta
-  
+
   # When RMB is pressed, move camera by difference of mouse position
   if drag and __rmbk:
     camera_movement = _prev_mouse_pos - get_local_mouse_position()
-  
+
   # Update position of the camera.
   position += camera_movement * get_zoom()
-  
+
   # Set camera movement to zero, update old mouse position.
   camera_movement = Vector2(0,0)
   _prev_mouse_pos = get_local_mouse_position()
+
+
+func update_zoom(incr, zoom_anchor):
+  var old_lvl = camera_zoom.x
+  camera_zoom.x += incr
+
+  if camera_zoom.x < zoom_min:
+    camera_zoom.x = zoom_min
+  elif camera_zoom.x > zoom_out_limit:
+    camera_zoom.x = zoom_out_limit
+
+  if old_lvl == camera_zoom.x:
+    return
+
+  var zoom_center = zoom_anchor - get_offset()
+  var ratio = 1.0 - camera_zoom.x / old_lvl
+  set_offset(get_offset() + zoom_center * ratio)
+  camera_zoom.y=camera_zoom.x
+  set_zoom(camera_zoom)
+
 
 func _unhandled_input( event ):
   if event is InputEventMouseButton:
@@ -108,15 +128,17 @@ func _unhandled_input( event ):
       # Control by right mouse button.
       if event.pressed: __rmbk = true
       else: __rmbk = false
-    # Check if mouse wheel was used. Not handled by ImputMap!
+    # Check if mouse wheel was used. Not handled by InputMap!
     if wheel:
       if event.button_index == BUTTON_WHEEL_UP:
-        camera_zoom = Vector2(clamp(camera_zoom.x - zoom_speed, zoom_min, zoom_out_limit), clamp(camera_zoom.y - zoom_speed, zoom_min, zoom_out_limit))
-        set_zoom(camera_zoom)
+        update_zoom(-zoom_speed, get_local_mouse_position())
+        #camera_zoom = Vector2(clamp(camera_zoom.x - zoom_speed, zoom_min, zoom_out_limit), clamp(camera_zoom.y - zoom_speed, zoom_min, zoom_out_limit))
+        #set_zoom(camera_zoom)
       if event.button_index == BUTTON_WHEEL_DOWN:
-        camera_zoom = Vector2(clamp(camera_zoom.x + zoom_speed, zoom_min, zoom_out_limit), clamp(camera_zoom.y + zoom_speed, zoom_min, zoom_out_limit))
-        set_zoom(camera_zoom)
-  # Control by keyboard handled by InpuMap.
+        update_zoom(zoom_speed, get_local_mouse_position())
+        #camera_zoom = Vector2(clamp(camera_zoom.x + zoom_speed, zoom_min, zoom_out_limit), clamp(camera_zoom.y + zoom_speed, zoom_min, zoom_out_limit))
+        #set_zoom(camera_zoom)
+  # Control by keyboard handled by InputMap.
   if event.is_action_pressed("ui_left"):
     __keys[0] = true
   if event.is_action_pressed("ui_up"):
