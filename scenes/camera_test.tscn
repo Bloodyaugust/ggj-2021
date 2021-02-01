@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://doodads/better_cam/BetterCam.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/controllers/star_system_test_controller.gd" type="Script" id=2]
+[ext_resource path="res://actors/star_system/StarSystem.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actors/fleet/Fleet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://doodads/BackgroundParallax.tscn" type="PackedScene" id=5]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+star_system_actor = ExtResource( 3 )
+
+[node name="Systems" type="Node" parent="."]
+
+[node name="Fleet" parent="." instance=ExtResource( 4 )]
+
+[node name="BackgroundParallax" parent="." instance=ExtResource( 5 )]
+
+[node name="BetterCam" parent="." instance=ExtResource( 1 )]

@@ -9,7 +9,7 @@ export var move_range: float
 export var speed: float
 
 onready var _area2d: Area2D = $"./Area2D"
-onready var _camera: Camera2D = get_tree().get_root().find_node("RTS-Camera2D", true, false)
+onready var _camera: Camera2D = get_tree().get_root().find_node("BetterCam", true, false)
 onready var _sprite: Sprite = $"./Sprite"
 
 var _current_scale: float
@@ -71,6 +71,9 @@ func _process(delta):
 
 func _ready():
   _current_state = fleet_states.IDLE
+
+  if _camera == null:
+    _camera = get_tree().get_root().find_node("RTS-Camera2D", true, false)
 
   _area2d.connect("input_event", self, "_on_area2d_input_event")
   Store.connect("state_changed", self, "_on_store_state_changed")
