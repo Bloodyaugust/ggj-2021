@@ -7,7 +7,12 @@ onready var _timer = $Timer
 const timerInterval = 2
 
 func _connection_completed(response, code, headers, body):
-  var json = JSON.parse(body.get_string_from_utf8()).result
+  var _response_body: String = body.get_string_from_utf8()
+  
+  if _response_body == "":
+    return
+  
+  var json = JSON.parse(_response_body).result
   var check=Store.state["gameOver"]
   if (check[0]!=json.winner):
     Store.set_state("gameOver", [json.winner])
