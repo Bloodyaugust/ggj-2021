@@ -249,7 +249,7 @@ func populate_event(event):
   var conq_credit=int(current_system.sysConq*1.7)
   _event_popup._set_event_title(randomize_flavor_text(event.title))
   _event_popup._display_flavor_text(randomize_flavor_text(event.description))
-  print("Description: " + event.description)
+  # print("Description: " + event.description)
   _event_popup._set_flavor_picture(event.graphicID)
 
   active_options=[]
