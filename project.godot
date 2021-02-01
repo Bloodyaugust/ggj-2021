@@ -29,7 +29,7 @@ _global_script_class_icons={
 config/name="SM4RT"
 config/description="You are one of many disconnected contingents of humanity, after an apocalyptic happenstance that closed off warp travel. The warp is finally safe to travel once more, after many centuries... and you want to reunite humanity under your banner. Mechanics-wise, you'll be gathering resources, allocating them to scaling your industry, war machine, and exploration. You will encounter other pockets of humanity you must do combat with, maybe other players?"
 run/main_scene="res://scenes/main.tscn"
-config/icon="res://sprites/icon/Asset_15.png"
+config/icon="res://icon.png"
 
 [autoload]
 
@@ -46,7 +46,6 @@ GalaxyController="*res://scripts/controllers/galaxy_controller.gd"
 
 window/size/width=1920
 window/size/height=1080
-window/size/resizable=false
 window/stretch/mode="2d"
 
 [editor_plugins]
