@@ -1,6 +1,6 @@
 extends Node
 
-const SYSTEMS_TO_WIN: int = 3
+const SYSTEMS_TO_WIN: int = 30
 
 export var _fleet_actor: PackedScene
 
