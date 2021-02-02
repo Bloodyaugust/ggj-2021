@@ -178,7 +178,7 @@
 				{
 					"type": "Silicate",
 					"credits": 10,
-					"fuel": 10,
+					"fuel": 40,
 					"supplies": 8,
 					"weight": 25,
 					"difficulty": 5,
@@ -190,7 +190,7 @@
 				{
 					"type": "Gas",
 					"credits": 10,
-					"fuel": 60,
+					"fuel": 300,
 					"supplies": 10,
 					"weight": 20,
 					"difficulty": 10,
@@ -202,7 +202,7 @@
 				{
 					"type": "Desert",
 					"credits": 30,
-					"fuel": 20,
+					"fuel": 60,
 					"supplies": 20,
 					"weight": 10,
 					"difficulty": 20,
@@ -214,7 +214,7 @@
 				{
 					"type": "Lava",
 					"credits": 10,
-					"fuel": 15,
+					"fuel": 60,
 					"supplies": 20,
 					"weight": 10,
 					"difficulty": 20,
@@ -226,7 +226,7 @@
 				{
 					"type": "Ocean",
 					"credits": 20,
-					"fuel": 15,
+					"fuel": 60,
 					"supplies": 17,
 					"weight": 10,
 					"difficulty": 20,
@@ -238,7 +238,7 @@
 				{
 					"type": "Iron",
 					"credits": 30,
-					"fuel": 20,
+					"fuel": 120,
 					"supplies": 20,
 					"weight": 10,
 					"difficulty": 20,
@@ -250,7 +250,7 @@
 				{
 					"type": "Ice",
 					"credits": 30,
-					"fuel": 30,
+					"fuel": 120,
 					"supplies": 20,
 					"weight": 10,
 					"difficulty": 20,
@@ -262,7 +262,7 @@
 				{
 					"type": "Terrestrial",
 					"credits": 40,
-					"fuel": 70,
+					"fuel": 200,
 					"supplies": 50,
 					"weight": 5,
 					"difficulty": 30,
@@ -274,7 +274,7 @@
 				{
 					"type": "Chthonian",
 					"credits": 0,
-					"fuel": 1,
+					"fuel": 0,
 					"supplies": 0,
 					"weight": 1,
 					"difficulty": 0,
@@ -444,7 +444,7 @@
 					"title": "A Silicate Turning Planet",
 					"requirements": 64,
 					"graphicID": "",
-					"description": "You join a landing party headed for a Silicon planet. {The shuttle feels as if it will shake itself apart, but you land safely in a human settlement./After a smooth ride down, you find yourself in a human settlement./The shuttle barrels towards the planet, and soon you arrive at a human settlement./Your shuttle shakes its way into a human settlement.} It appears you’ve made land at an ancient {mining site. Decrepit machinery has been repurposed, and the ground is cracked and rocky./city. Concrete buildings crumble around you./colony.  Massive domes still contain greenhouses and atmosphere, and it follows that people are there, too.}",
+					"description": "You join a landing party headed for a Silicate planet. {The shuttle feels as if it will shake itself apart, but you land safely in a human settlement./After a smooth ride down, you find yourself in a human settlement./The shuttle barrels towards the planet, and soon you arrive at a human settlement./Your shuttle shakes its way into a human settlement.} It appears you’ve made land at an ancient {mining site. Decrepit machinery has been repurposed, and the ground is cracked and rocky./city. Concrete buildings crumble around you./colony.  Massive domes still contain greenhouses and atmosphere, and it follows that people are there, too.}",
 					"weight": 10,
 					"options": 1
 				},
