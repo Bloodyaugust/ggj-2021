@@ -152,7 +152,7 @@ margin_top = 424.0
 margin_right = 626.0
 margin_bottom = 481.736
 custom_fonts/font = ExtResource( 8 )
-text = "CONNECT TO SERVER"
+text = "LOADING..."
 
 [node name="CreditsButton" type="Button" parent="TextureRect/Buttons"]
 margin_top = 511.0

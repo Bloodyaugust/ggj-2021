@@ -1,6 +1,6 @@
 extends Node
 
-const SYSTEMS_TO_WIN: int = 30
+const SYSTEMS_TO_WIN: int = 3
 
 export var _fleet_actor: PackedScene
 
@@ -10,26 +10,34 @@ onready var _systems_container: Node2D = $"../Systems"
 onready var _server_hook: Node = $"../ServerHook"
 onready var _star_system_controller: Node = $"../StarSystemController"
 
-
 var fuel_tick=0
+
+func _game_over():
+  print("running game over")
+  Store.set_state("game", GameConstants.GAME_OVER)
+  Store.set_state("client_view", ClientConstants.CLIENT_VIEW_MAIN_MENU)
+  _server_hook._stop_Timer()
+  GDUtil.queue_free_children(_fleets_container)
+  yield(get_tree().create_timer(5.0), "timeout")
+  GalaxyController.load_galaxy()
 
 func _on_state_changed(state_key: String, substate):
   match state_key:
-    "gameOver":
-      if substate[0]:
-        # Store.set_state("game", GameConstants.GAME_OVER)
-        # Store.set_state("client_view", ClientConstants.CLIENT_VIEW_MAIN_MENU)
-        print("ded")
-
     "game":
       match substate:
+        GameConstants.GAME_ENDING:
+          _game_over()
+
         GameConstants.GAME_STARTING:
           GDUtil.queue_free_children(_fleets_container)
 
           var _starting_system_actor: Node2D
           for _system in _systems_container.get_children():
             if _system.system.name == Store.state.starting_system.system.name:
+              _system.system.owner = Store.state.uid
               _starting_system_actor = _system
+              GalaxyController.update_system(_system.system)
+              Clientstore.set_visit_status(_system.system.name, "owned")
               break
 
           var _new_fleet: Node2D = _fleet_actor.instance()
@@ -47,19 +55,13 @@ func _on_state_changed(state_key: String, substate):
 
 func _on_client_store_resources_changed(state_key, substate):
   if Clientstore.values.owned_systems >= SYSTEMS_TO_WIN && Store.state.game != GameConstants.GAME_OVER:
-    _server_hook._win_the_game();
-    Store.set_state("game", GameConstants.GAME_OVER)
-    Store.set_state("client_view", ClientConstants.CLIENT_VIEW_MAIN_MENU)
+    print("running game_over from win the game")
+    _server_hook._win_the_game()
+    _game_over()
 
 func _ready():
   Clientstore.connect("resources_changed", self, "_on_client_store_resources_changed")
   Store.connect("state_changed", self, "_on_state_changed")
-
-  Clientstore.set_state("supplies",rand_range(40,60))
-  Clientstore.set_state("credits",rand_range(50,100))
-  Clientstore.set_state("fuel", 1000)
-  Clientstore.set_state("fuel_max", 2000)
-  Clientstore.set_state("fuel_tick", 0)
 
 
 func _on_ResourceTimer_timeout():

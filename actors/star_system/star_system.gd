@@ -20,6 +20,12 @@ func initialize(new_system: Dictionary) -> void:
   _sprite.scale = Vector2(0.15 + _scale_modifier, 0.15 + _scale_modifier)
   _collision_shape.shape.radius = (_sprite.texture.get_size().x * _sprite.scale.x) / 2
 
+func _draw():
+  if system.owner == Store.state.uid:
+    draw_arc(Vector2(), 300, 0, PI * 2, 32, ClientConstants.COLOR_GREEN)
+  if _hovered:
+    draw_arc(Vector2(), 350, 0, PI * 2, 32, ClientConstants.COLOR_BLUE)
+
 func _evaluate_name_label():
   if Store.state.selection == null:
     _label.text = "???"
@@ -55,8 +61,16 @@ func _on_store_state_changed(state_key, substate):
 
       _evaluate_name_label()
 
+func _on_galaxy_controller_system_updated(updating_system: Dictionary):
+  if system.name == updating_system.name:
+    system = updating_system
+
+func _process(_delta):
+  update()
+
 func _ready():
   _area2d.connect("mouse_entered", self, "_on_area2d_mouse_entered")
   _area2d.connect("mouse_exited", self, "_on_area2d_mouse_exited")
   _area2d.connect("input_event", self, "_on_area2d_input_event")
   Store.connect("state_changed", self, "_on_store_state_changed")
+  GalaxyController.connect("system_updated", self, "_on_galaxy_controller_system_updated")

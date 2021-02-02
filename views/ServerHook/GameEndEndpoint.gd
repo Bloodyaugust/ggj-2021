@@ -9,17 +9,14 @@ const timerInterval = 2
 func _connection_completed(response, code, headers, body):
   var _response_body: String = body.get_string_from_utf8()
   
-  if _response_body == "":
-    return
-  
-  var json = JSON.parse(_response_body).result
-  var check=Store.state["gameOver"]
-  if (check[0]!=json.winner):
-    Store.set_state("gameOver", [json.winner])
+  var _json: Dictionary = JSON.parse(_response_body).result
+  if _json.winner:
+    Store.set_state("winner", _json.winner)
+    Store.set_state("game", GameConstants.GAME_ENDING)
 
 func _on_Timer_timeout():
   var query = to_json({"userID": str(Store.state["uid"])})
-  _gameEnd.request(ClientConstants.ENDPOINT_LOCAL + "gameover", ClientConstants.HEADER,\
+  _gameEnd.request(ClientConstants.ENDPOINT_ACTUAL + "gameover", ClientConstants.HEADER,\
     true, HTTPClient.METHOD_POST, query)
 
 func _start_Timer():

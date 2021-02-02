@@ -49,8 +49,10 @@ func _on_state_changed(state_key: String, substate):
     "game":
       match substate:
         GameConstants.GAME_OVER:
+          _play_button.text = "LOADING..."
           _play_button.disabled = true
     "systems":
+      _play_button.text = "CONNECT TO SERVER"
       _play_button.disabled = false
 
 # Called when the node enters the scene tree for the first time.

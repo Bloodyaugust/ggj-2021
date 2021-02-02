@@ -19,7 +19,7 @@ func _start_Timer():
   $GameEndEndpoint._start_Timer()
 
 func _stop_Timer():
-  $GameEndpoint._stop_Timer()
+  $GameEndEndpoint._stop_Timer()
 
 func _win_the_game():
   $SetWonEndpoint._send_win()

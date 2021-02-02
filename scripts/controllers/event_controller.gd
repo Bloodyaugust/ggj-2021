@@ -1,6 +1,7 @@
 extends Node
 
 onready var _event_popup: WindowDialog = $"../UIRoot/EventPopup"
+onready var _server_hook: Node = $"../ServerHook"
 
 # event selection variables
 var seeded_rnd = RandomNumberGenerator.new()
@@ -239,6 +240,17 @@ func get_stuff(rewards):
         current_system["status"]="owned"
         Clientstore.set_visit_status(system_name,"owned")
         Clientstore.set_state("fuel_tick",current_system.sysFuel)
+
+        # Update system to be owned by the player
+        var _system = GalaxyController.get_system(system_name)
+        _system.owner = Store.state.uid
+        GalaxyController.update_system(_system)
+
+        # Tell the server about the ownership change
+        if _server_hook:
+          _server_hook._attempt_control({
+            "system": _system
+          })
       _:
         var goods=rewards[key]
         var update=Clientstore.get_state(key)+goods

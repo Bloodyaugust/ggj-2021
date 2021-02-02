@@ -3,6 +3,8 @@ extends Node
 signal resources_changed(val_key, val)
 signal systems_changed(sys_key, sys)
 
+onready var _server_hook = get_tree().get_root().find_node("ServerHook", true, false)
+
 var values: Dictionary = {
   # The game's currency -- how you pay to upkeep fleets, admin, etc.
   "credits":0,
@@ -65,6 +67,14 @@ func set_visit_status(sys_name: String, state: String)-> void:
     set_state("owned_systems",owned)
     return
 
+  # Tell the server we are visiting this system
+  if _server_hook:
+    _server_hook._attempt_exploration({
+      "system": {
+        "name": sys_name
+      }
+    })
+
   system_knowledge[sys_name]=state
   if (state=="owned"):
     var owned=values["owned_systems"]+1
@@ -86,5 +96,21 @@ func _load_all_systems(sys):
 func _initialize():
   pass
 
+func _on_store_state_changed(state_key, substate):
+  match state_key:
+    "game":
+      match substate:
+        GameConstants.GAME_STARTING:
+          _reset()
+
 func _ready():
   call_deferred("_initialize")
+  Store.connect("state_changed", self, "_on_store_state_changed")
+
+func _reset():
+  values.owned_systems = 0
+  set_state("supplies",rand_range(40,60))
+  set_state("credits",rand_range(50,100))
+  set_state("fuel", 1000)
+  set_state("fuel_max", 2000)
+  set_state("fuel_tick", 0)
