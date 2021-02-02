@@ -7,6 +7,7 @@ onready var _sprite: Sprite = $"./Sprite"
 
 var system: Dictionary
 
+var _fleet_present: bool
 var _hovered: bool
 var _targeted: bool
 
@@ -23,7 +24,7 @@ func initialize(new_system: Dictionary) -> void:
 func _draw():
   if system.owner == Store.state.uid:
     draw_arc(Vector2(), 300, 0, PI * 2, 32, ClientConstants.COLOR_GREEN)
-  if _hovered:
+  if _hovered || _targeted:
     draw_arc(Vector2(), 350, 0, PI * 2, 32, ClientConstants.COLOR_BLUE)
 
 func _evaluate_name_label():
@@ -31,9 +32,16 @@ func _evaluate_name_label():
     _label.text = "???"
     return
 
+  if _fleet_present:
+    _label.text = system.name
+    return
+
   if _hovered || _targeted:
     if Store.state.selection.is_in_range(self):
-      _label.text = system.name
+      _label.text = "{name} ({fuel} fuel to travel)".format({
+        "name": system.name,
+        "fuel": stepify(Store.state.selection.get_fuel_consumption_to_target(self), 1)
+      })
     else:
       _label.text = "???"
   else:
@@ -51,6 +59,12 @@ func _on_area2d_mouse_exited():
   _hovered = false
   _evaluate_name_label()
 
+func _on_store_fleet_arrived(fleet, target_system):
+  _fleet_present = target_system == self
+
+  if _fleet_present:
+    _label.text = system.name
+
 func _on_store_state_changed(state_key, substate):
   match state_key:
     "target":
@@ -66,11 +80,17 @@ func _on_galaxy_controller_system_updated(updating_system: Dictionary):
     system = updating_system
 
 func _process(_delta):
+  if _targeted && !_fleet_present:
+    _label.text = "{name} ({fuel} fuel to travel)".format({
+      "name": system.name,
+      "fuel": stepify(Store.state.selection.get_fuel_consumption_to_target(self), 1)
+    })
   update()
 
 func _ready():
   _area2d.connect("mouse_entered", self, "_on_area2d_mouse_entered")
   _area2d.connect("mouse_exited", self, "_on_area2d_mouse_exited")
   _area2d.connect("input_event", self, "_on_area2d_input_event")
+  Store.connect("fleet_arrived", self, "_on_store_fleet_arrived")
   Store.connect("state_changed", self, "_on_store_state_changed")
   GalaxyController.connect("system_updated", self, "_on_galaxy_controller_system_updated")
