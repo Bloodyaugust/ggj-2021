@@ -16,7 +16,7 @@ var systems = [];
 var winnerID = null;
 
 function generateGalaxy() {
-  // console.log("generating new galaxy");
+  console.log(`Generating new galaxy at ${new Date()}`);
   systems = [];
   for (let i = 0; i < SYSTEMS_PER_GALAXY; i++) {
     systems.push(new System(chanceInstance));
@@ -31,9 +31,7 @@ app.get('/galaxy', function (req, res) {
 });
 
 app.post('/gameover', function(req, res) {
-	// Get the userID
-	const { userID } = req.body;
-	players[userID] = false;
+  console.log('checking winner: ', winnerID)
 	
 	res.json({
 		winner: winnerID
@@ -43,14 +41,22 @@ app.post('/gameover', function(req, res) {
 app.post('/won', function(req, res) {
 	const { userID } = req.body;
 	winnerID = userID;
-	
+
+  console.log(`Player ${userID} won the game at ${new Date()}, resetting galaxy`);
+
 	res.json({
 		winner: winnerID
 	})
 	
 	generateGalaxy();
 	
-	players[userID] = false;
+  Object.keys(players).forEach(userID => {
+    players[userID] = false;
+  });
+
+  setTimeout(() => {
+    winnerID = null;
+  }, 5000);
 });
 
 app.post('/rename', (req, res) => {
@@ -73,6 +79,7 @@ app.post('/explore', (req, res) => {
   const exploringSystem = systems.find(system => system.name === systemName);
 
   exploringSystem.explore(userID);
+  console.log(`Player ${userID} explored system: ${systemName}`)
 
   res.json({
     system: exploringSystem
@@ -84,6 +91,8 @@ app.post('/owner', (req, res) => {
   const owningSystem = systems.find(system => system.name === systemName);
 
   owningSystem.setOwner(userID);
+
+  console.log(`${systemName} now owned by player: ${userID}`);
 
   res.json({
     system: owningSystem
@@ -107,16 +116,19 @@ app.post('/register', (req, res) => {
         startingSystem = testingSystem;
         testingSystem.setOwner(userID);
       } else if (startingSystemTries >= MAX_REGISTER_STARTING_SYSTEM_TRIES) {
+        console.log('Failed to register player')
         res.status(500).end();
         return;
       }
     }
 
+    console.log(`Registered new player with userID: ${userID} in system ${startingSystem.name}`)
     res.json({
       id: userID,
       system: startingSystem
     });
   } else {
+    console.log('Failed to register player')
     res.status(500).end()
   }
 });
