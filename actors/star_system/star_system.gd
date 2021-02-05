@@ -26,13 +26,6 @@ func _draw():
     draw_arc(Vector2(), 300, 0, PI * 2, 32, ClientConstants.COLOR_GREEN)
   if _hovered || _targeted:
     draw_arc(Vector2(), 350, 0, PI * 2, 32, ClientConstants.COLOR_BLUE)
-    var i = 0
-    for planet in system.planets:
-      i += 30
-      draw_arc(Vector2(), 350 + i, 0, PI * 2, 32, ClientConstants.COLOR_LIGHT_BLUE)
-
-    
-
 
 func _evaluate_name_label():
   if Store.state.selection == null:
