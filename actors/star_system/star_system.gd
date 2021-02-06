@@ -24,15 +24,13 @@ func initialize(new_system: Dictionary) -> void:
 func _draw():
   if system.owner == Store.state.uid:
     draw_arc(Vector2(), 300, 0, PI * 2, 32, ClientConstants.COLOR_GREEN)
-  if _hovered || _targeted:
-    draw_arc(Vector2(), 350, 0, PI * 2, 32, ClientConstants.COLOR_BLUE)
+  if (_hovered || _targeted) && Store.state.selection.is_in_range(self):
     var i = 0
+    var col = Color(1,1,1,1)
     for planet in system.planets:
       i += 30
-      draw_arc(Vector2(), 350 + i, 0, PI * 2, 32, ClientConstants.COLOR_LIGHT_BLUE)
-
-    
-
+      col = Color(planet.colorHex)
+      draw_arc(Vector2(), 320 + i, 0, PI * 2, 32, col, 3, true)
 
 func _evaluate_name_label():
   if Store.state.selection == null:

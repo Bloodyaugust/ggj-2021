@@ -172,6 +172,14 @@
 				{
 					"typeStr": "4",
 					"name": "hosMax"
+				},
+				{
+					"typeStr": "11",
+					"name": "Color"
+				},
+				{
+					"typeStr": "1",
+					"name": "colorHex"
 				}
 			],
 			"lines": [
@@ -185,7 +193,9 @@
 					"popMin": -1,
 					"popMax": 1,
 					"hosMin": -1,
-					"hosMax": 1
+					"hosMax": 1,
+					"Color": 14053376,
+					"colorHex": "#d67000"
 				},
 				{
 					"type": "Gas",
@@ -197,7 +207,9 @@
 					"popMin": -2,
 					"popMax": 2,
 					"hosMin": -2,
-					"hosMax": 2
+					"hosMax": 2,
+					"Color": 16774912,
+					"colorHex": "#fff700"
 				},
 				{
 					"type": "Desert",
@@ -209,7 +221,9 @@
 					"popMin": -4,
 					"popMax": 4,
 					"hosMin": -4,
-					"hosMax": 4
+					"hosMax": 4,
+					"Color": 16249036,
+					"colorHex": "#f7f0cc"
 				},
 				{
 					"type": "Lava",
@@ -221,7 +235,9 @@
 					"popMin": -4,
 					"popMax": 4,
 					"hosMin": -4,
-					"hosMax": 4
+					"hosMax": 4,
+					"Color": 16711680,
+					"colorHex": "#ff0000"
 				},
 				{
 					"type": "Ocean",
@@ -233,7 +249,9 @@
 					"popMin": -4,
 					"popMax": 4,
 					"hosMin": -4,
-					"hosMax": 4
+					"hosMax": 4,
+					"Color": 5537791,
+					"colorHex": "#547fff"
 				},
 				{
 					"type": "Iron",
@@ -245,7 +263,9 @@
 					"popMin": -4,
 					"popMax": 4,
 					"hosMin": -4,
-					"hosMax": 4
+					"hosMax": 4,
+					"Color": 9868950,
+					"colorHex": "#969696"
 				},
 				{
 					"type": "Ice",
@@ -257,7 +277,9 @@
 					"popMin": -4,
 					"popMax": 4,
 					"hosMin": -4,
-					"hosMax": 4
+					"hosMax": 4,
+					"Color": 16777215,
+					"colorHex": "#ffffff"
 				},
 				{
 					"type": "Terrestrial",
@@ -269,7 +291,9 @@
 					"popMin": -6,
 					"popMax": 6,
 					"hosMin": -6,
-					"hosMax": 6
+					"hosMax": 6,
+					"Color": 244992,
+					"colorHex": "#03bd00"
 				},
 				{
 					"type": "Chthonian",
@@ -281,7 +305,9 @@
 					"popMin": 0,
 					"popMax": 0,
 					"hosMin": 0,
-					"hosMax": 0
+					"hosMax": 0,
+					"Color": 16717796,
+					"colorHex": "#ff17e4"
 				}
 			],
 			"separators": [],
