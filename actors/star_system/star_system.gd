@@ -85,7 +85,7 @@ func _on_galaxy_controller_system_updated(updating_system: Dictionary):
     system = updating_system
 
 func _process(_delta):
-  if _targeted && !_fleet_present:
+  if _targeted && !_fleet_present && Store.state.selection.is_in_range(self):
     _label.text = "{name} ({fuel} fuel to travel)".format({
       "name": system.name,
       "fuel": stepify(Store.state.selection.get_fuel_consumption_to_target(self), 1)
